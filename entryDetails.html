@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>入职详情</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1537426_wak9rjnz6na.css">
+</head>
+<style>
+#entry{width: 100%;}
+#entry .wrap{width: 100%;}
+#entry .wrap .nav-bgc{position: relative;width: 100%;height: 170px;background-color: #2F93F3;}
+#entry .wrap .nav-bgc .id-box{position: absolute;top:95px;width: 90%;height: 140px;border-radius: 10px;box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);background-color: #fff;}
+#entry .wrap .nav-bgc .id-box .idInfo{padding:10px 10px;}
+#entry .wrap .nav-bgc .id-box .idInfo .headImg{width: 30%; align-content: center;}
+#entry .wrap .nav-bgc .id-box .idInfo .headImg img{width: 70px;height: 70px;border-radius: 10px;}
+#entry .wrap .nav-bgc .id-box .idInfo .stuInfo{width: 70%;}
+#entry .wrap .nav-bgc .id-box .idInfo .stuInfo p{font-size:14px;color:#000;font-weight:500;opacity:.5;font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
+#entry .wrap .nav-bgc .id-box .idInfo .stuInfo p.name{font-size: 16px;font-weight: 700;opacity: 1;}
+#entry .wrap .nav-bgc .id-box .idInfo .stuInfo p.experience{padding:5px 0;}
+#entry .wrap .nav-bgc .id-box .idInfo .stuInfo p span{padding-right: 20px;}
+#entry .wrap .nav-bgc .id-box div.brief{ padding:0 20px 20px 20px;color: skyblue;font-size: 14px;}
+
+#entry .wrap .company-details{margin-top: 100px;}
+#entry .wrap .company-details .title{padding-left: 20px;}
+#entry .wrap .company-details .title i{color: skyblue;padding-top: 4px;}
+#entry .wrap .company-details .title i.iconfont{font-size: 25px;}
+#entry .wrap .company-details .title p{padding-left:8px;padding-top:8px;font-size: 16px;font-weight: bold;font-family:'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
+#entry .wrap .company-details .commpany-desc{padding: 20px;font-size: 14px;opacity: .8;text-indent: 2em;}
+#entry .wrap .company-details .company-img{padding: 0 20px;}
+#entry .wrap .company-details .company-img img{width: 100%;}
+
+
+</style>
+<body>
+    <div id="entry">
+        <div class="wrap">
+            <div class="nav-bgc flex justify-center">
+                <!-- 信息盒子 -->
+                <div class="id-box">
+                    <div class="idInfo flex">
+                        <div class="headImg flex justify-center">
+                            <img src="./img/head1.png" alt="">
+                        </div>
+                        <div class="stuInfo">
+                            <p class="name" v-text="name"></p>
+                            <p class="experience"> 
+                                <span v-text="education"></spanv->
+                                <span v-text="'薪资：'+salary"></span>
+                            </p>
+                            <p v-text="'毕业于'+graduated"></p>
+                        </div>
+                    </div>
+                    <div class="brief" v-text="brief"></div>
+                </div>
+
+            </div>
+            <!-- 入职公司详情-->
+            <div class="company-details">
+                <div class="title flex">
+                    <i class="icon iconfont icongongsixinxi"></i>
+                    <p>入职公司详情</p>
+                </div>
+                <!-- 具体描述 -->
+                <div class="commpany-desc">
+                    <span v-text="company_desc"></span>
+                </div>
+                <div class="company-img">
+                    <img :src="company_img" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+ var entry = new Vue({
+     el:'#entry',
+     data:{
+         name:'黄一璐',
+         education:'本科',
+         salary:'8k',
+         graduated:'浙江大学城学院',
+         brief:'简介：性格活泼开朗，喜欢运动，对待工作有热情，有积极性，喜欢挑战。',
+         company_desc:'杭州会友科技有限公司是一家致力于行业移动解决方案的软件公司。主要提供行业解决方案的商业策略，咨询设计，定制研发等服务。核心团队成立于2012年，现已在宁波、台州等地设立分公司和办事处，技术人员60余人，已上线项目百余款。公司秉承着“精工细作，科技会友”的创业理念，致力做行业内领先的移动应用开发服务商。',
+         company_img:'./img/company-img.png',
+     },
+     methods: {
+         
+     },
+ })
+</script>
+</html>

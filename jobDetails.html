@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>职位详情</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1537426_wak9rjnz6na.css">
+</head>
+<style>
+    p{font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
+    #job{width: 100%;}
+    #job .wrap{width: 100%;}
+    #job .wrap img.job-backgroud{width: 100%;position: relative;}
+    #job .wrap .job-details{position: absolute;top:214px;width: 100%;border-radius:30px 30px 0 0;background-color: #fff;padding: 15px 23px;}
+    #job .wrap .job-details .brief{padding-bottom: 25px;}
+    #job .wrap .job-details .brief p{font-size: 14px;}
+    #job .wrap .job-details .brief p:nth-child(1){font-size: 20px;font-weight: 700;}
+    #job .wrap .job-details .brief p:nth-child(2){padding: 10px 0 5px 0;opacity: .5;}
+    #job .wrap .job-details .brief p:nth-child(3) span{padding: 3px 8px;border-radius: 4px;}
+    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(1){color: #A1A9EA;background-color: #E6ECFE;}
+    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(2){color: #60BD9E;background-color: #DCF7EE;margin: 0 5px;}
+    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(3){color: #DD8D85;background-color: #FEEBEA;}
+    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(4){padding:0 0 0 43px;}
+    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(4) em{color: red;font-size: 22px;padding-left: 5px;}
+
+    #job .wrap .job-details .welfare{padding-bottom: 15px;}
+    #job .wrap .job-details .welfare p:nth-child(1){font-size: 25px;color:#ccc;font-weight: 500;}
+    #job .wrap .job-details .welfare p:nth-child(2){font-size: 14px;padding: 5px 0;}
+    #job .wrap .job-details .welfare p:nth-child(2) span{padding-right: 15px;}
+
+    #job .wrap .job-details .job-desc{padding-bottom: 25px;}
+    #job .wrap .job-details .job-desc p{font-size: 25px;color:#ccc;font-weight: 500;}/*职位描述*/
+    #job .wrap .job-details .job-desc span{height: 130px;display:block;font-size: 14px;padding-top: 10px;}
+
+    #job .wrap .job-details .job-address{padding-bottom: 10px;}
+    #job .wrap .job-details .job-address p:nth-child(1){font-size: 25px;color:#ccc;font-weight: 500;}
+    #job .wrap .job-details .job-address p:nth-child(2){font-size: 14px;padding: 10px 0;}
+    #job .wrap .job-details .job-address div img{width: 100%;}
+
+    #job .wrap .job-details .recommend{padding:10px 0px;}
+    #job .wrap .job-details .recommend span{width: 100%;padding: 5px 80px;background:linear-gradient(to right, #1A88F7, #3BB3FF);color: #fff;border-radius: 8px;text-align: center;}
+    #job .wrap .job-details .recommend span i.iconfont{font-size:20px;padding-right: 5px;}
+
+</style>
+<body>
+    <div id="job">
+        <div class="wrap">
+            <img class="job-backgroud" src="./img/job_details.png" alt="">
+            <div class="job-details">
+                <div class="brief">
+                    <p>Java开发工程师</p>
+                    <p>会友科技</p>
+                    <p>
+                        <span>绍兴</span>
+                        <span>2年以上</span>
+                        <span>本科</span>
+                        <span>薪资<em>9k-11k</em></span>
+                    </p>
+                </div>
+                <div class="welfare">
+                    <p>福利介绍</p>
+                    <p>
+                        <span>五险一金</span>
+                        <span>绩效奖金</span>
+                        <span>双休</span>
+                        <span>加班补贴</span>
+                    </p>
+                </div>
+                <div class="job-desc">
+                    <p>职位描述</p>
+                    <span>1.具有扎实的Java基础，熟练掌握io,多线程并发。
+                            2.熟练使用Spring/Hibernate等热门开源框架
+                            2.熟练使用Spring/Hibernate等热门开源框架
+                            2.熟练使用Spring/Hibernate等热门开源框架
+                            2.熟练使用Spring/Hibernate等热门开源框架
+                            2.熟练使用Spring/Hibernate等热门开源框架
+                            2.熟练使用Spring/Hibernate等热门开源框架
+                    </span>
+                </div>
+                <div class="job-address">
+                    <p>工作地址</p>
+                    <p>浙江省绍兴市越城区金滩大厦3楼</p>    
+                    <div>
+                        <img src="./img/company.png" alt="">
+                    </div>
+                </div>
+                <div class="recommend flex justify-between">
+                    <span><i class="icon iconfont iconzhuanfa1"></i>推荐给好友</s>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var job = new Vue({
+        el:'#job',
+        data:{
+
+        },
+        methods: {
+            
+        },
+    })
+</script>
+</html>

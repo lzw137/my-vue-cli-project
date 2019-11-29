@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>优秀学员</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1537426_wak9rjnz6na.css">
+</head>
+<style>
+    #app{width: 100%;min-width: 320px;}
+    #app .wrap{width: 100%;}
+    #app .wrap ul{width: 100%;margin-top:10px;}
+    #app .wrap ul li{margin:10px 10px;padding:10px 0px;border:1px solid #F4F4F4;border-radius:6px;box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);}
+    #app .wrap ul li div.headImg{width: 25%;align-content: center;} 
+    #app .wrap ul li div.headImg img{width: 65px;height: 65px;border-radius:50%;}  
+    #app .wrap ul li div.stuInfo{width: 75%;}
+    #app .wrap ul li div.stuInfo p{font-size: 16px;font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
+    #app .wrap ul li div.stuInfo p.jobPostion{font-weight: 700;}
+    #app .wrap ul li div.stuInfo p.company{padding:5px 0;font-size: 14px;color:#000;opacity: .5;}
+    #app .wrap ul li div.stuInfo p.company i{padding-top:1px ;}
+    
+    #app .wrap ul li div.stuInfo p.experience{font-size: 14px;}
+    #app .wrap ul li div.stuInfo p.experience span:nth-child(1){color:#578CE4;}
+    #app .wrap ul li div.stuInfo p.experience span:nth-child(2){color:#54AA7A;padding:0px 10px;}
+    #app .wrap ul li div.stuInfo p.experience span:nth-child(3){color:#F2A294;}
+    
+</style>
+<body>
+    <div id="app">
+        <div class="wrap">
+            <ul>
+                <li class="flex" v-for="item in stuInfo">
+                    <!-- 头像 -->
+                    <div class="headImg flex justify-center">
+                        <img :src="item.headImg" alt="">
+                    </div>
+                    <!-- 学生信息 -->
+                    <div class="stuInfo">
+                        <p class="jobPosition" v-text="item.jobPosition"></p>
+                        <p class="company flex justify-between">
+                            <span v-text="'入职公司:'+item.company"></span>
+                            <i class="icon iconfont iconmore"></i>
+                        </p>
+                        <p class="experience">
+                            <span v-text="'薪资待遇:'+item.salary"></span>
+                            <span v-text="'学历:'+item.education">学历：本科</span>
+                            <span v-text="'工作经验:'+item.experience"></span>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+ var vm = new Vue({
+     el:'#app',
+     data:{
+        stuInfo:[{
+            headImg:'./img/head1.png',
+            jobPosition:'Java开发工程师-黄一璐',
+            company:'浙江百代信息技术有限公司',
+            salary:'8K',
+            education:'本科',
+            experience:'半年'
+        },
+        {
+            headImg:'./img/head2.png',
+            jobPosition:'Java开发工程师-黄一璐',
+            company:'浙江百代信息技术有限公司',
+            salary:'8K',
+            education:'本科',
+            experience:'半年'
+        },
+        {
+            headImg:'./img/head3.png',
+            jobPosition:'Java开发工程师-黄一璐',
+            company:'浙江百代信息技术有限公司',
+            salary:'8K',
+            education:'本科',
+            experience:'半年'
+        }]
+
+     },
+     methods: {
+         
+     },
+ })
+</script>
+</html>
