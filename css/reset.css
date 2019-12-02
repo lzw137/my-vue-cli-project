@@ -264,13 +264,13 @@ input[type='search'] {
 input::-webkit-input-placeholder {
     /* WebKit browsers */
     color: #bababa;
-    font-size: 16px;
+    font-size: 1rem;
     font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;
 }
 input:-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
     color: #bababa;
-    font-size: 16px;
+    font-size: 1rem;
     font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;
 }
 input::-moz-placeholder {
@@ -282,6 +282,6 @@ input::-moz-placeholder {
 input:-ms-input-placeholder {
     /* Internet Explorer 10+ */
     color: #bababa;
-    font-size: 16px;
+    font-size: 1rem;
     font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;
 }

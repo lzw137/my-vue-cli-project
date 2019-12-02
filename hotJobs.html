@@ -1,12 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>热招职位</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link href="https://cdn.bootcss.com/Swiper/4.5.1/css/swiper.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1537426_zmse968mns.css">
+    <script src="./js/rem.js"></script>
 </head>
+<style>
+/*修改提示文字的颜色*/
+input::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #bababa;
+    font-size: .875rem;
+    font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;
+}
+input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #bababa;
+    font-size: .875rem;
+    font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;
+}
+input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #bababa;
+    font-size: .875rem;
+    font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;
+}
+input:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #bababa;
+    font-size: 0.875rem;
+    font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;
+}
+#hot{width: 100%;}
+#hot .wrap{width: 100%;}
+#hot .wrap .nav-bgc{height: 10.625rem;background-color: #F2F2F2;padding: 1.25rem 0.9375rem;}
+#hot .wrap .nav-bgc img{width: 100%;border-radius: 0.625rem;}
+#hot .wrap .nav-bgc .search-bar{padding:0 0.625rem;position: relative;top: -2.9375rem;}
+#hot .wrap .nav-bgc .search-bar input{width: 20.25rem;padding: 0.375rem 0.875rem;border-radius:1.25rem;border: none;}
+#hot .wrap .nav-bgc .search-bar i{position: relative;top: -1.625rem;left: 18.375rem;}
+#hot .wrap .nav-bgc .search-bar i.iconfont{font-size: 1rem!important;}
+
+#hot .wrap .popular-employer{width: 100%;padding: 0.9375rem 0.9375rem;background-color: #fff;border-bottom: 0.625rem solid #F2F2F2;}
+#hot .wrap .popular-employer .hot-title{width: 100%;}
+#hot .wrap .popular-employer .hot-title i{padding-top: 0.375rem;padding-right: 0.3125rem;}
+#hot .wrap .popular-employer .hot-title i img{width: 1.25rem;height: 1.25rem;}
+#hot .wrap .popular-employer .hot-title p{font-size: 1.25rem;font-weight: 700;}
+
+#hot .wrap .popular-employer .company{margin-top: 1.25rem;padding-left: 0.3125rem;}
+#hot .wrap .popular-employer .company .logo-box{width: 4.625rem;height: 4.625rem;border-radius: 0.75rem; align-content: center;box-shadow:0rem 0rem 0.4375rem 0.0625rem rgba(0,0,0,0.1);}
+#hot .wrap .popular-employer .company .logo-box img{width: 3.75rem;}
+#hot .wrap .popular-employer .company p{font-size: 0.875rem;padding: 0.625rem 0.5rem;}
+
+#hot .wrap .hot-jobs{width: 100%;padding:0.9375rem;background-color: #fff;border-bottom: 0.625rem solid #F2F2F2;}
+#hot .wrap .hot-jobs .hot-title{width: 100%;}
+#hot .wrap .hot-jobs .hot-title i{padding-top: 0.25rem;padding-right: 0.3125rem;}
+#hot .wrap .hot-jobs .hot-title i img{width: 1.25rem;height: 1.25rem;}
+#hot .wrap .hot-jobs .hot-title p{font-size: 1.25rem;font-weight: 700;}
+
+#hot .wrap .hot-jobs .sort{width: 100%;}
+#hot .wrap .hot-jobs .sort .classfication{width: 50%;align-content: center;padding: 0.625rem 1.25rem;}
+#hot .wrap .hot-jobs .sort .classfication:nth-child(1){border-right:0.0625rem solid #F2F2F2;border-bottom: 0.0625rem solid #F2F2F2;}
+#hot .wrap .hot-jobs .sort .classfication:nth-child(2){border-left:0.0625rem solid #F2F2F2;border-bottom: 0.0625rem solid #F2F2F2;}
+#hot .wrap .hot-jobs .sort .classfication:nth-child(3){border-right:0.0625rem solid #F2F2F2;border-top: 0.0625rem solid #F2F2F2;}
+#hot .wrap .hot-jobs .sort .classfication:nth-child(4){border-left:0.0625rem solid #F2F2F2;border-top: 0.0625rem solid #F2F2F2;}
+#hot .wrap .hot-jobs .sort .classfication img{width: 2.5rem;height: 2.5rem;}
+#hot .wrap .hot-jobs .sort .classfication p{padding:0.625rem 0 0 0.625rem;}
+
+#hot .wrap .interest{width: 100%;padding: 0.9375rem;background-color: #fff;}
+#hot .wrap .interest .tip{width: 100%;text-align: center;font-size: 0.875rem;color: rgba(0,0,0,0.6);}
+#hot .wrap .interest .interest-job{width: 100%;border-radius: 0.625rem;box-shadow:0rem 0rem 0.4375rem 0.0625rem rgba(0,0,0,0.1);padding: 0.9375rem;margin-top: 1.25rem;}
+#hot .wrap .interest .interest-job .job-left{width: 70%;}
+#hot .wrap .interest .interest-job .job-left p{font-size: 0.875rem;}
+#hot .wrap .interest .interest-job .job-left p.job-name{font-size: 1rem;font-weight: 700;}
+#hot .wrap .interest .interest-job .job-left p.job-company{padding: 0.5rem 0;color: rgba(0,0,0,0.5);}
+#hot .wrap .interest .interest-job .job-left p.job-experience span{font-size:0.75rem;padding: 0.1875rem 0.5rem;border-radius: 0.125rem;}
+#hot .wrap .interest .interest-job .job-left p.job-experience span:nth-child(1){color: #A1A9EA;background-color: #E6ECFE;}
+#hot .wrap .interest .interest-job .job-left p.job-experience span:nth-child(2){color: #60BD9E;background-color: #DCF7EE;margin: 0 0.3125rem;}
+#hot .wrap .interest .interest-job .job-left p.job-experience span:nth-child(3){color: #DD8D85;background-color: #FEEBEA;}
+
+#hot .wrap .interest .interest-job .job-right{width: 30%;}
+#hot .wrap .interest .interest-job .job-right .job-logo{width: 100%;}
+#hot .wrap .interest .interest-job .job-right .job-logo img{width: 2.5rem;height: 2.5rem;}
+#hot .wrap .interest .interest-job .job-right p{font-size: 1.125rem; color:#4C87FA;text-align: center;padding-top:0.625rem;}
+
+</style>
 <body>
-    
+    <div id="hot">
+        <div class="nav">
+            <i></i>
+            <p>热招职位</p>
+        </div>
+        <div class="wrap">
+            <!-- 顶部背景及搜索框 -->
+            <div class="nav-bgc">
+                <img src="./img/job-bgc.png" alt="">
+                <div class="search-bar">
+                    <input type="text" placeholder="搜索我想要的职位">
+                    <i class="icon iconfont iconsousuo"></i>
+                </div>
+            </div>
+            <!-- 热门雇主 -->
+            <div class="popular-employer">
+                <div class="hot-title flex">
+                    <i><img src="./img/remen.png" alt=""></i>
+                    <p>热门雇主</p>
+                </div>
+                <div class="swiper-container company-preview ">       
+                    <div class="swiper-wrapper" >
+                        <div class="swiper-slide" v-for="item in company">
+                            <div class="company">
+                                <div class="logo-box flex justify-center">
+                                    <img :src="item.companyLogo" alt="logo">
+                                </div>
+                                <p v-text="item.name"></p>
+                            </div>
+                        </div>
+                    </div>                  
+                </div>
+            </div>
+            <!-- 热门职位 -->
+            <div class="hot-jobs">
+                <div class="hot-title flex">
+                    <i><img src="./img/zhiwei.png" alt="职位"></i>
+                    <p>热门职位</p>
+                </div>
+                <div class="sort flex">
+                    <div class="classfication flex">
+                        <img src="./img/zuanshi.png" alt=""></<img>
+                        <p>超高薪酬</p>
+                    </div>
+                    <div class="classfication flex">
+                        <img src="./img/world.png" alt=""></<img>
+                        <p>世界500强</p>
+                    </div>
+                    <div class="classfication flex">
+                        <img src="./img/hot.png" alt=""></<img>
+                        <p>人气头牌</p>
+                    </div>
+                    <div class="classfication flex">
+                        <img src="./img/xuexiao.png" alt=""></<img>
+                        <p>校园招聘</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 你可能感兴趣的职位 -->
+            <div class="interest">
+                <div class="tip">你可能感兴趣的职位</div>
+                <div class="interest-job flex" v-for="item in interest">
+                    <div class="job-left">
+                        <p class="job-name" v-text="item.name"></p>
+                        <p class="job-company" v-text="item.company"></p>
+                        <p class="job-experience">
+                            <span class="address" v-text="item.address"></span>
+                            <span class="years" v-text="item.years"></span>
+                            <span class="education" v-text="item.education"></span>
+                        </p>
+                    </div>
+                    <div class="job-right">
+                        <div class="job-logo flex justify-center">
+                            <img :src="item.logo" alt="">
+                        </div>
+                        <p v-text="item.salary"></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </body>
+
+<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+<script src="https://cdn.bootcss.com/Swiper/4.5.1/js/swiper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var hot = new Vue({
+        el: '#hot',
+        data: {
+            company:[{
+                companyLogo:'./img/gognslogo1.png',
+                name:'华森科技'
+            },{
+                companyLogo:'./img/gognslogo2.png',
+                name:'广发证券'
+            },{
+                companyLogo:'./img/gognslogo3.png',
+                name:'统一企业'
+            },{
+                companyLogo:'./img/gognslogo4.png',
+                name:'华为技术'
+            },
+            {
+                companyLogo:'./img/touxiang.png',
+                name:'会友科技'
+            },{
+                companyLogo:'./img/head1.png',
+                name:'会友科技'
+            },
+            {
+                companyLogo:'./img/head2.png',
+                name:'会友科技'
+            },{
+                companyLogo:'./img/head3.png',
+                name:'会友科技'
+            },
+            ],
+            interest:[{
+            name:'Java开发工程师',
+            company:'会友科技',
+            address:'绍兴',
+            years:'两年以上',
+            education:'本科',
+            logo:'./img/gognslogo4.png',
+            salary:'9k-11k'
+            },
+            {
+            name:'Java开发工程师',
+            company:'会友科技',
+            address:'绍兴',
+            years:'两年以上',
+            education:'本科',
+            logo:'./img/gognslogo2.png',
+            salary:'9k-11k'
+            },
+            {
+            name:'Java开发工程师',
+            company:'会友科技',
+            address:'绍兴',
+            years:'两年以上',
+            education:'本科',
+            logo:'./img/gognslogo3.png',
+            salary:'9k-11k'
+            },
+            {
+            name:'Java开发工程师',
+            company:'会友科技',
+            address:'绍兴',
+            years:'两年以上',
+            education:'本科',
+            logo:'./img/huiju.png',
+            salary:'9k-11k'
+            },
+            ]
+            }
+        },
+       )
+
+    var swiper = new Swiper('.swiper-container', {
+    slidesPerView: 4,
+    loop:true,
+    autoplay: {
+    delay: 3000,
+    stopOnLastSlide: false,
+    disableOnInteraction: false,
+    },
+    });
+</script>
+
 </html>

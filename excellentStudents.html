@@ -6,29 +6,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>优秀学员</title>
     <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1537426_wak9rjnz6na.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1537426_zmse968mns.css">
+    <script src="./js/rem.js"></script>
 </head>
 <style>
-    #app{width: 100%;min-width: 320px;}
+    #app{width: 100%;min-width: 20rem;}
     #app .wrap{width: 100%;}
-    #app .wrap ul{width: 100%;margin-top:10px;}
-    #app .wrap ul li{margin:10px 10px;padding:10px 0px;border:1px solid #F4F4F4;border-radius:6px;box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);}
+    #app .wrap ul{width: 100%;margin-top:0.625rem;}
+    #app .wrap ul li{margin:0.625rem 0.9375rem;padding:0.625rem 0rem;border:0.0625rem solid #F4F4F4;border-radius:0.375rem;box-shadow:0rem 0rem 0.3125rem 0.0625rem rgba(0,0,0,0.1);}
     #app .wrap ul li div.headImg{width: 25%;align-content: center;} 
-    #app .wrap ul li div.headImg img{width: 65px;height: 65px;border-radius:50%;}  
+    #app .wrap ul li div.headImg img{width: 4.0625rem;height: 4.0625rem;border-radius:50%;}  
     #app .wrap ul li div.stuInfo{width: 75%;}
-    #app .wrap ul li div.stuInfo p{font-size: 16px;font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
+    #app .wrap ul li div.stuInfo p{font-size: 1rem;font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
     #app .wrap ul li div.stuInfo p.jobPostion{font-weight: 700;}
-    #app .wrap ul li div.stuInfo p.company{padding:5px 0;font-size: 14px;color:#000;opacity: .5;}
-    #app .wrap ul li div.stuInfo p.company i{padding-top:1px ;}
+    #app .wrap ul li div.stuInfo p.company{padding:0.3125rem 0;font-size: 0.875rem;color:#000;opacity: .5;}
+    #app .wrap ul li div.stuInfo p.company i{padding-top:0.0625rem ;}
+    #app .wrap ul li div.stuInfo p.company i.iconfont{font-size: 1rem!important;}
     
-    #app .wrap ul li div.stuInfo p.experience{font-size: 14px;}
+    #app .wrap ul li div.stuInfo p.experience{font-size: 0.875rem;}
     #app .wrap ul li div.stuInfo p.experience span:nth-child(1){color:#578CE4;}
-    #app .wrap ul li div.stuInfo p.experience span:nth-child(2){color:#54AA7A;padding:0px 10px;}
+    #app .wrap ul li div.stuInfo p.experience span:nth-child(2){color:#54AA7A;padding:0rem 0.625rem;}
     #app .wrap ul li div.stuInfo p.experience span:nth-child(3){color:#F2A294;}
     
 </style>
 <body>
     <div id="app">
+        <div class="nav">
+            <i></i>
+            <p>优秀学员</p>
+        </div>
         <div class="wrap">
             <ul>
                 <li class="flex" v-for="item in stuInfo">
@@ -56,8 +62,9 @@
 </body>
 <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./js/rem.js"></script>
 <script>
- var vm = new Vue({
+ var app = new Vue({
      el:'#app',
      data:{
         stuInfo:[{
@@ -70,7 +77,7 @@
         },
         {
             headImg:'./img/head2.png',
-            jobPosition:'Java开发工程师-黄一璐',
+            jobPosition:'Html前端开发-张三斤',
             company:'浙江百代信息技术有限公司',
             salary:'8K',
             education:'本科',
@@ -78,7 +85,15 @@
         },
         {
             headImg:'./img/head3.png',
-            jobPosition:'Java开发工程师-黄一璐',
+            jobPosition:'项目经理-杨不凡',
+            company:'浙江百代信息技术有限公司',
+            salary:'8K',
+            education:'本科',
+            experience:'半年'
+        },
+        {
+            headImg:'./img/touxiang.png',
+            jobPosition:'Java开发工程师-周不易',
             company:'浙江百代信息技术有限公司',
             salary:'8K',
             education:'本科',
