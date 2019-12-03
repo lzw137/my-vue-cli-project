@@ -13,9 +13,8 @@
     p{font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
     #job{width: 100%;}
     #job .nav{width: 100%; padding:0.9375rem 0;}
-    #job .nav i{position: absolute;left: 0.9375rem;top:0.59rem;}
-    #job .nav i.iconfont{font-size: 1.875rem!important;}
-    #job .nav p{width: 4rem;font-weight: 700;}
+    #job .nav img{position: absolute;left: 0.9375rem;top:1.25rem;width: 0.5625rem;height: 1rem;}
+    #job .nav p{width:4.5rem;font-weight: 700;font-size: 1.125rem;}
 
     #job .wrap{width: 100%;}
     #job .wrap img.job-backgroud{width: 100%;position: relative;}
@@ -25,36 +24,36 @@
     #job .wrap .job-details .brief p:nth-child(1){font-size: 1.25rem;font-weight: 700;}
     #job .wrap .job-details .brief p:nth-child(2){padding: 0.625rem 0 0.3125rem 0;opacity: .5;}
     #job .wrap .job-details .brief p:nth-child(3) span{padding: 0.1875rem 0.5rem;border-radius: 0.25rem;}
-    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(1){color: #A1A9EA;background-color: #E6ECFE;}
-    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(2){color: #60BD9E;background-color: #DCF7EE;margin: 0 0.3125rem;}
-    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(3){color: #DD8D85;background-color: #FEEBEA;}
+    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(1){color: #6984f5;background-color: #E8EDFF;}
+    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(2){color: #15b27e;background-color: #dcf7ee;margin: 0 0.3125rem;}
+    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(3){color: #e27963;background-color: #ffece8;}
     #job .wrap .job-details .brief p:nth-child(3) span:nth-child(4){padding:0 0 0 2.6875rem;}
     #job .wrap .job-details .brief p:nth-child(3) span:nth-child(4) em{color: red;font-size: 1.375rem;padding-left: 0.3125rem;}
 
     #job .wrap .job-details .welfare{padding-bottom: 0.9375rem;}
-    #job .wrap .job-details .welfare p:nth-child(1){font-size: 1.5625rem;color:#ccc;font-weight: 500;}
+    #job .wrap .job-details .welfare p:nth-child(1){font-size: 1.5625rem;color:#cfd0d1;font-weight: 500;}
     #job .wrap .job-details .welfare p:nth-child(2){font-size: 0.875rem;padding: 0.3125rem 0;}
     #job .wrap .job-details .welfare p:nth-child(2) span{padding-right: 0.9375rem;}
 
     #job .wrap .job-details .job-desc{padding-bottom: 1.5625rem;}
-    #job .wrap .job-details .job-desc p{font-size: 1.5625rem;color:#ccc;font-weight: 500;}/*职位描述*/
+    #job .wrap .job-details .job-desc p{font-size: 1.5625rem;color:#cfd0d1;font-weight: 500;}/*职位描述*/
     #job .wrap .job-details .job-desc span{height: 8.125rem;display:block;font-size: 0.875rem;padding-top: 0.625rem;}
 
     #job .wrap .job-details .job-address{padding-bottom: 0.625rem;}
-    #job .wrap .job-details .job-address p:nth-child(1){font-size: 1.5625rem;color:#ccc;font-weight: 500;}
+    #job .wrap .job-details .job-address p:nth-child(1){font-size: 1.5625rem;color:#cfd0d1;font-weight: 500;}
     #job .wrap .job-details .job-address p:nth-child(2){font-size: 0.875rem;padding: 0.625rem 0;}
     #job .wrap .job-details .job-address div img{width: 100%;}
 
     #job .wrap .job-details .recommend{padding:0.625rem 0rem;}
-    #job .wrap .job-details .recommend span{width: 100%;padding: 0.3125rem 5rem;background:linear-gradient(to right, #1A88F7, #3BB3FF);color: #fff;border-radius: 0.5rem;text-align: center;}
+    #job .wrap .job-details .recommend span{width: 100%;height: 2.3125rem;padding: 0.3125rem 5rem;background:linear-gradient(to right, #1a87f7, #3cb3ff);color: #fff;border-radius: 0.5rem;text-align: center;}
     #job .wrap .job-details .recommend span i.iconfont{font-size:1.25rem!important;padding-right: 0.3125rem;}
 
 </style>
 <body>
     <div id="job">
         <div class="nav flex justify-center">
-            <i class="icon iconfont iconback" @click="back"></i>
-                <p>职位详情</p>
+            <img src="./img/back.png" alt="back" @click="back">
+            <p>职位详情</p>
         </div>
         <div class="wrap">
             <img class="job-backgroud" src="./img/job_details.png" alt="">

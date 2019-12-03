@@ -6,44 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>入职详情</title>
     <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1537426_zmse968mns.css">
     <script src="./js/rem.js"></script>
 </head>
 <style>
 #entry{width: 100%;}
-#entry .nav{width: 100%; padding:0.9375rem 0;background-color: #2F93F3;color: #fff;}
-#entry .nav i{position: absolute;left: 0.9375rem;top:0.59rem}
-#entry .nav i.iconfont{font-size: 1.875rem!important;}
-#entry .nav p{width:4rem;font-weight: 700;}
+#entry .nav{width: 100%; padding:0.9375rem 0;background-color: #2D93F3;}
+#entry .nav img{position: absolute;left: 0.9375rem;top:1.25rem;width: 0.5625rem;height: 1rem;}
+#entry .nav p{width:4.5rem;font-weight: 700;font-size: 1.125rem;color: #fff;}
 
 #entry .wrap{width: 100%;}
 #entry .wrap .nav-bgc{position: relative;width: 100%;height: 6.875rem;background-color: #2F93F3;}
-#entry .wrap .nav-bgc .id-box{position: absolute;top:2.1875rem;width: 90%;height: 8.75rem;border-radius: 0.625rem;box-shadow:0rem 0rem 0.3125rem 0.0625rem rgba(0,0,0,0.1);background-color: #fff;}
-#entry .wrap .nav-bgc .id-box .idInfo{padding:0.625rem 0.625rem;}
-#entry .wrap .nav-bgc .id-box .idInfo .headImg{width: 30%; align-content: center;}
-#entry .wrap .nav-bgc .id-box .idInfo .headImg img{width: 4.375rem;height: 4.375rem;border-radius: 0.625rem;}
+#entry .wrap .nav-bgc .id-box{position: absolute;top:1.5625rem;width: 92%;height: 10.125rem;border-radius: 0.625rem;box-shadow:0rem 0rem 0.3125rem 0.0625rem rgba(0,0,0,0.1);background-color: #fff;}
+#entry .wrap .nav-bgc .id-box .idInfo{padding:0.9375rem 0.625rem 0.75rem 0.9375rem;}
+#entry .wrap .nav-bgc .id-box .idInfo .headImg{width: 5.875rem; align-content: center;}
+#entry .wrap .nav-bgc .id-box .idInfo .headImg img{width: 4.5625rem;height: 4.5625rem;border-radius: 0.6875rem;padding-left: 0.25rem;}
 #entry .wrap .nav-bgc .id-box .idInfo .stuInfo{width: 70%;}
-#entry .wrap .nav-bgc .id-box .idInfo .stuInfo p{font-size:0.875rem;color:#000;font-weight:500;opacity:.5;font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
-#entry .wrap .nav-bgc .id-box .idInfo .stuInfo p.name{font-size: 1rem;font-weight: 700;opacity: 1;}
-#entry .wrap .nav-bgc .id-box .idInfo .stuInfo p.experience{padding:0.3125rem 0;}
-#entry .wrap .nav-bgc .id-box .idInfo .stuInfo p span{padding-right: 1.25rem;}
-#entry .wrap .nav-bgc .id-box div.brief{ padding:0 1.25rem 1.25rem 1.25rem;color: skyblue;font-size: 0.875rem;}
+#entry .wrap .nav-bgc .id-box .idInfo .stuInfo p{font-size:0.875rem;color:#2e2e2e;font-weight:500;opacity:.5;font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;line-height: 1.5rem;}
+#entry .wrap .nav-bgc .id-box .idInfo .stuInfo p.name{font-size: 1rem;font-weight:bold;opacity: 1;color: #000;}
+#entry .wrap .nav-bgc .id-box .idInfo .stuInfo p span{padding-right: 1.0625rem;}
+#entry .wrap .nav-bgc .id-box div.brief{ padding:0 2rem 1.25rem 1.25rem;color: #2e86ab;font-size: 0.875rem;line-height: 1.5rem;}
 
 #entry .wrap .company-details{margin-top: 6.25rem;}
 #entry .wrap .company-details .title{padding-left: 1.25rem;}
-#entry .wrap .company-details .title i{color: skyblue;padding-top: 0.25rem;}
-#entry .wrap .company-details .title i.iconfont{font-size: 1.5625rem!important;}
+#entry .wrap .company-details .title img{width: 1.1875rem;height: 1.125rem;margin-top: 0.5rem;}
 #entry .wrap .company-details .title p{padding-left:0.5rem;padding-top:0.5rem;font-size: 1rem;font-weight: bold;font-family:'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
-#entry .wrap .company-details .commpany-desc{padding: 1.25rem;font-size: 0.875rem;opacity: .8;text-indent: 2em;}
-#entry .wrap .company-details .company-img{padding: 0 1.25rem;}
-#entry .wrap .company-details .company-img img{width: 100%;}
+#entry .wrap .company-details .commpany-desc{padding: 0.9375rem;font-size: 0.9375rem;color: #525252;text-indent: 2em;line-height: 1.5rem;}
+#entry .wrap .company-details .company-img{padding: 0 0.9375rem;}
+#entry .wrap .company-details .company-img img{width:100%;}
 
 
 </style>
 <body>
     <div id="entry">
         <div class="nav flex justify-center">
-            <i class="icon iconfont iconback" @click="back"></i>
+            <img src="./img/back2.png" alt="back" @click="back">
             <p>入职详情</p>
         </div>
         <div class="wrap">
@@ -51,13 +47,13 @@
                 <!-- 信息盒子 -->
                 <div class="id-box">
                     <div class="idInfo flex">
-                        <div class="headImg flex justify-center">
+                        <div class="headImg flex">
                             <img src="./img/head1.png" alt="">
                         </div>
                         <div class="stuInfo">
                             <p class="name" v-text="name"></p>
                             <p class="experience"> 
-                                <span v-text="education"></spanv->
+                                <span v-text="education"></span>
                                 <span v-text="'薪资：'+salary"></span>
                             </p>
                             <p v-text="'毕业于'+graduated"></p>
@@ -70,7 +66,7 @@
             <!-- 入职公司详情-->
             <div class="company-details">
                 <div class="title flex">
-                    <i class="icon iconfont icongongsixinxi"></i>
+                    <img src="./img/gongsijianjie.png" alt>
                     <p>入职公司详情</p>
                 </div>
                 <!-- 具体描述 -->

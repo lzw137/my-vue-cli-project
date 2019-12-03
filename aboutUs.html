@@ -13,9 +13,8 @@
 <style>
 #about{width: 100%;}
 #about .nav{width: 100%; padding:0.9375rem 0;}
-#about .nav i{position: absolute;left: 0.9375rem;top:0.59rem;}
-#about .nav i.iconfont{font-size: 1.875rem!important;}
-#about .nav p{width: 4rem;font-weight: 700;}
+#about .nav img{position: absolute;left: 0.9375rem;top:1.25rem;width: 0.5625rem;height: 1rem;}
+#about .nav p{width:4.5rem;font-weight: 700;font-size: 1.125rem;}
 
 #about .wrap{width: 100%;}
 #about .wrap .nav-bgc{width: 100%;}
@@ -44,7 +43,7 @@
 <body>
     <div id="about">
         <div class="nav flex justify-center">
-            <i class="icon iconfont iconback" @click="back"></i>
+                <img src="./img/back.png" alt="back" @click="back">
             <p>关于会聚</p>
         </div>
         <div class="wrap">
