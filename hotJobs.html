@@ -38,6 +38,11 @@ input:-ms-input-placeholder {
     font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;
 }
 #hot{width: 100%;}
+#hot .nav{width: 100%; padding:0.9375rem 0;}
+#hot .nav i{position: absolute;left: 0.9375rem;top:0.59rem;}
+#hot .nav i.iconfont{font-size: 1.875rem!important;}
+#hot .nav p{width: 4rem;font-weight: 700;}
+
 #hot .wrap{width: 100%;}
 #hot .wrap .nav-bgc{height: 10.625rem;background-color: #F2F2F2;padding: 1.25rem 0.9375rem;}
 #hot .wrap .nav-bgc img{width: 100%;border-radius: 0.625rem;}
@@ -53,9 +58,10 @@ input:-ms-input-placeholder {
 #hot .wrap .popular-employer .hot-title p{font-size: 1.25rem;font-weight: 700;}
 
 #hot .wrap .popular-employer .company{margin-top: 1.25rem;padding-left: 0.3125rem;}
-#hot .wrap .popular-employer .company .logo-box{width: 4.625rem;height: 4.625rem;border-radius: 0.75rem; align-content: center;box-shadow:0rem 0rem 0.4375rem 0.0625rem rgba(0,0,0,0.1);}
+#hot .wrap .popular-employer .company .logo-box{width: 4.625rem;height: 4.625rem;border-radius: 0.75rem; align-items: center;box-shadow:0rem 0rem 0.4375rem 0.0625rem rgba(0,0,0,0.1);}
 #hot .wrap .popular-employer .company .logo-box img{width: 3.75rem;}
-#hot .wrap .popular-employer .company p{font-size: 0.875rem;padding: 0.625rem 0.5rem;}
+#hot .wrap .popular-employer .company .company-name{text-align: center;}
+#hot .wrap .popular-employer .company .company-name p{font-size: 0.875rem;padding: 0.625rem 0.5rem 0.625rem 0;}
 
 #hot .wrap .hot-jobs{width: 100%;padding:0.9375rem;background-color: #fff;border-bottom: 0.625rem solid #F2F2F2;}
 #hot .wrap .hot-jobs .hot-title{width: 100%;}
@@ -92,8 +98,8 @@ input:-ms-input-placeholder {
 </style>
 <body>
     <div id="hot">
-        <div class="nav">
-            <i></i>
+        <div class="nav flex justify-center">
+            <i class="icon iconfont iconback" @click="back"></i>
             <p>热招职位</p>
         </div>
         <div class="wrap">
@@ -118,7 +124,9 @@ input:-ms-input-placeholder {
                                 <div class="logo-box flex justify-center">
                                     <img :src="item.companyLogo" alt="logo">
                                 </div>
-                                <p v-text="item.name"></p>
+                                <div class="company-name">
+                                    <p v-text="item.name"></p>
+                                </div>
                             </div>
                         </div>
                     </div>                  
@@ -152,7 +160,7 @@ input:-ms-input-placeholder {
             <!-- 你可能感兴趣的职位 -->
             <div class="interest">
                 <div class="tip">你可能感兴趣的职位</div>
-                <div class="interest-job flex" v-for="item in interest">
+                <div class="interest-job flex" v-for="item in interest" @click="jump">
                     <div class="job-left">
                         <p class="job-name" v-text="item.name"></p>
                         <p class="job-company" v-text="item.company"></p>
@@ -182,7 +190,8 @@ input:-ms-input-placeholder {
     var hot = new Vue({
         el: '#hot',
         data: {
-            company:[{
+            company:[
+                {
                 companyLogo:'./img/gognslogo1.png',
                 name:'华森科技'
             },{
@@ -197,17 +206,21 @@ input:-ms-input-placeholder {
             },
             {
                 companyLogo:'./img/touxiang.png',
-                name:'会友科技'
+                name:'融创'
             },{
                 companyLogo:'./img/head1.png',
-                name:'会友科技'
+                name:'赛诺菲中国'
             },
             {
                 companyLogo:'./img/head2.png',
-                name:'会友科技'
+                name:'康恩贝英诺珐医药'
             },{
                 companyLogo:'./img/head3.png',
-                name:'会友科技'
+                name:'Fedex'
+            },
+            {
+                companyLogo:'./img/huiju.png',
+                name:'太平人寿微招聘'
             },
             ],
             interest:[{
@@ -247,8 +260,17 @@ input:-ms-input-placeholder {
             salary:'9k-11k'
             },
             ]
-            }
-        },
+            },
+            methods: {
+            jump:function(){
+            window.location.href='./jobDetails.html';
+            },
+            back:function(){
+            window.location.href='./index.html';
+            window.history.back(-1); 
+         }
+            },
+        },      
        )
 
     var swiper = new Swiper('.swiper-container', {

@@ -1,6 +1,94 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>会聚人力</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1537426_zmse968mns.css">
+    <script src="./js/rem.js"></script>
+</head>
+<style>
+#home{width: 100%;}
+#home .nav{width: 100%; padding:0.9375rem 0;}
+#home .nav i{position: absolute;left: 0.9375rem;top:0.59rem;}
+#home .nav i.iconfont{font-size: 1.875rem!important;}
+#home .nav p{width: 4rem;font-weight: 700;}
+
+#home .wrap{width: 100%;}
+#home .wrap .content{width: 100%;height: 90%;position: absolute;top:3.1875rem;background-color:#EDEDED;}
+#home .wrap .content .time{font-size: 0.75rem;color: grey;text-align: center;padding:1.25rem 0;}
+#home .wrap .content .msg-box{width: 100%;}
+#home .wrap .content .msg-box .logo{width: 20%;}
+#home .wrap .content .msg-box .logo img{margin-left:1.25rem;width: 2.5rem;height: 2.5rem;border-radius: 0.25rem;}
+#home .wrap .content .msg-box .message{width: 60%;background-color: #fff;border-radius:0.375rem ;padding: 0.9375rem;}
+#home .wrap .content .msg-box .message p{font-size: 0.875rem;}
+#home .wrap .content .msg-box .message p span{color: skyblue;}
+
+
+#home .wrap .bottom{position:fixed;bottom:0;width: 100%;background-color: #fff;}
+#home .wrap .bottom a{width: 33.3%;text-align: center;padding:0.625rem 1.25rem;border-top: 0.0625rem solid #EDEDED ;}
+#home .wrap .bottom a:visited{color: #000;}
+#home .wrap .bottom a:hover{color: red;}
+#home .wrap .bottom a.hotJobs{border-left: 0.0625rem solid #EDEDED;border-right: 0.0625rem solid #EDEDED;}
+#home .wrap .bottom a span{font-size: 0.875rem;}
+
+</style>
+
 <body>
-<h1>标题</h1>
-hello world!
+    <div id="home">
+        <div class="nav flex justify-center">
+            <i class="icon iconfont iconback" @click="back"></i>
+            <p>会聚人力</p>
+        </div>
+        <div class="wrap">
+            <div class="content">
+                <div class="time">{{time}}</div>
+                <div class="msg-box flex">
+                    <div class="logo">
+                        <img src="./img/huiju.png" alt=""></div>
+                    <div class="message">
+                        <p><span>欢迎关注会聚人力，</span>在这里你可以了解到会聚人力关于IT人才的培养，看到优秀学员的入职介绍，更有百家企业热招岗位任你挑选。欢迎每一个期待明天更好的你！</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom flex justify-between">
+                <a class="excellentStudents" href="./excellentStudents.html">
+                    <span>优秀学生</span>
+                </a>
+                <a class="hotJobs" href="./hotJobs.html">
+                    <span>热招职位</span>
+                </a>
+                <a class="aboutUs" href="./aboutUs.html">
+                    <span>关于会聚</span>
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
+
+<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var home = new Vue({
+        el: '#home',
+        data: {
+            time:''
+        },
+        mounted:function(){
+            this.time=new Date();
+            
+        },
+        methods: {
+            back:function(){
+                window.history.back(-1); 
+                window.location.href='./index.html';
+            }
+        },
+
+    })
+</script>
+
 </html>

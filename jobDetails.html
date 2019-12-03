@@ -12,6 +12,11 @@
 <style>
     p{font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
     #job{width: 100%;}
+    #job .nav{width: 100%; padding:0.9375rem 0;}
+    #job .nav i{position: absolute;left: 0.9375rem;top:0.59rem;}
+    #job .nav i.iconfont{font-size: 1.875rem!important;}
+    #job .nav p{width: 4rem;font-weight: 700;}
+
     #job .wrap{width: 100%;}
     #job .wrap img.job-backgroud{width: 100%;position: relative;}
     #job .wrap .job-details{position: absolute;top:13.375rem;width: 100%;border-radius:1.875rem 1.875rem 0 0;background-color: #fff;padding: 0.9375rem 1.4375rem;}
@@ -47,8 +52,8 @@
 </style>
 <body>
     <div id="job">
-        <div class="nav">
-                <i></i>
+        <div class="nav flex justify-center">
+            <i class="icon iconfont iconback" @click="back"></i>
                 <p>职位详情</p>
         </div>
         <div class="wrap">
@@ -109,7 +114,10 @@
 
         },
         methods: {
-            
+            back:function(){
+            window.location.href='./hotJobs.html';
+            window.history.back(-1); 
+         }
         },
     })
 </script>

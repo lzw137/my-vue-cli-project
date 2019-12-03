@@ -7,10 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>关于会聚</title>
     <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1537426_zmse968mns.css">
     <script src="./js/rem.js"></script>
 </head>
 <style>
 #about{width: 100%;}
+#about .nav{width: 100%; padding:0.9375rem 0;}
+#about .nav i{position: absolute;left: 0.9375rem;top:0.59rem;}
+#about .nav i.iconfont{font-size: 1.875rem!important;}
+#about .nav p{width: 4rem;font-weight: 700;}
+
 #about .wrap{width: 100%;}
 #about .wrap .nav-bgc{width: 100%;}
 #about .wrap .nav-bgc img{position:relative;width: 100%;}
@@ -37,8 +43,8 @@
 
 <body>
     <div id="about">
-        <div class="nav">
-            <i></i>
+        <div class="nav flex justify-center">
+            <i class="icon iconfont iconback" @click="back"></i>
             <p>关于会聚</p>
         </div>
         <div class="wrap">
@@ -102,6 +108,12 @@
         el: '#about',
         data: {
 
+        },
+        methods: {
+            back:function(){
+                window.history.back(-1); 
+                window.location.href='./index.html';
+            }
         },
 
     })
