@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_1537426_zmse968mns.css">
     <script src="./js/rem.js"></script>
+    <script src="./js/url.js"></script>
 </head>
 <style>
 #home{width: 100%;}
@@ -50,7 +51,7 @@
                     <div class="logo">
                         <img src="./img/huiju.png" alt=""></div>
                     <div class="message">
-                        <p><span>欢迎关注会聚人力，</span>在这里你可以了解到会聚人力关于IT人才的培养，看到优秀学员的入职介绍，更有百家企业热招岗位任你挑选。欢迎每一个期待明天更好的你！</p>
+                        <!-- <p><span>欢迎关注会聚人力，</span>在这里你可以了解到会聚人力关于IT人才的培养，看到优秀学员的入职介绍，更有百家企业热招岗位任你挑选。欢迎每一个期待明天更好的你！</p> -->
                     </div>
                 </div>
             </div>
@@ -69,7 +70,6 @@
     </div>
 </body>
 
-<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script type="text/javascript">
     var home = new Vue({
@@ -79,7 +79,16 @@
         },
         mounted:function(){
             this.time=new Date();
-            
+            fetch(url+"/sysApi/SelWelcome",{method:'post'})
+            .then(res=>{
+                return res.json();
+            })
+            .then(data=>{
+                console.log(data)
+                var data = data.data;
+                var message = document.getElementsByClassName("message")[0];
+                message.innerHTML=data;
+            })
         },
         methods: {
             back:function(){

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+  
+</body>
+<div id="fetch"></div>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+//     $.ajax({
+//        url: 'http://121.43.107.140:8104/hjwx/sysApi/SelIntroduce',
+//        type: 'post',
+//        dataType: 'json',//重点在这里，加上这个属性就可以跨域请求了  dataType: 'json',
+//        success: function (res) {
+//            console.log(res)
+//        },
+//        error:(err)=>{
+//            console.log(222)
+//        }
+//    })
+fetch("http://121.43.107.140:8104/hjwx/sysApi/SelIntroduce",{method:'post'}).then(data => {
+                    //text()方法属于fetchAPI的一部分，返回一个Promise实例对象，用于获取后台返回的数据
+                    return data.json();
+                })
+                .then(function (data){
+                    console.log(data)
+                    document.getElementById("fetch").insertAdjacentHTML("beforeend", data.data);
+                })
+   </script>
+</html>

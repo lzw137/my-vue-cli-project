@@ -4,45 +4,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <meta http-equiv="Access-Control-Allow-Origin" content="ie=edge">
+
     <title>关于会聚</title>
     <link rel="stylesheet" href="./css/reset.css">
     <script src="./js/rem.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/url.js"></script>
 </head>
 <style>
-#about{width: 100%;}
-#about .nav{width: 100%; padding:0.9375rem 0;}
-#about .nav img{position: absolute;left: 0.9375rem;top:1.25rem;width: 0.5625rem;height: 1rem;}
-#about .nav p{width:4.5rem;font-weight: 700;font-size: 1.125rem;}
+    #about {
+        width: 100%;
+    }
 
-#about .wrap{width: 100%;}
-#about .wrap .nav-bgc{width: 100%;}
-#about .wrap .nav-bgc img{position:relative;width: 100%;}
-#about .wrap .nav-bgc .company-introduce{position: absolute;top:10.625rem; margin:0 0.9375rem;background-color: #fff;}
-#about .wrap .nav-bgc .company-introduce .company-name{font-size: 1rem;font-weight: 700;text-align: center;margin-top: 2.75rem;}
-#about .wrap .nav-bgc .company-introduce .introduce-details{font-size: 0.875rem;text-indent: 2em;padding: 0.625rem 0.75rem;line-height:1.5rem;}
-#about .wrap .nav-bgc .company-logo{position: absolute;top:8.4375rem;width: 100%;padding: 0 1.25rem;}
-#about .wrap .nav-bgc .company-logo img{border-radius:50%;width: 4.0625rem;height: 4.0625rem;}
+    #about .nav {
+        width: 100%;
+        padding: 0.9375rem 0;
+    }
 
-#about .wrap .big-event{width: 100%;padding:0 0.9375rem;margin-top: 12.5rem;}
-#about .wrap .big-event .event-title p{font-size: 1.5rem;color:#ccc;font-weight: 500;}
-#about .wrap .big-event .event-content{padding-top: 0.75rem;padding-bottom:0.75rem;border-bottom: 0.125rem solid rgba(0, 0, 0, 0.05);}
-#about .wrap .big-event .event-content:nth-child(3){border-bottom: 0;}
-#about .wrap .big-event .event-content .event-img{width: 9.375rem;}
-#about .wrap .big-event .event-content .event-img img{width:100%;}
-#about .wrap .big-event .event-content .event-details{width: 11.8125rem;}
-#about .wrap .big-event .event-content .event-details p{padding-left: 0.8125rem;}
-#about .wrap .big-event .event-content .event-details p.head{text-align: center;font-size: 0.875rem;font-weight: 700;}
-#about .wrap .big-event .event-content .event-details p.event-desc{font-size: 0.8125rem;padding-top: 0.625rem;padding-left: 0.8125rem;line-height: 1rem;}
+    #about .nav img {
+        position: absolute;
+        left: 0.9375rem;
+        top: 1.25rem;
+        width: 0.5625rem;
+        height: 1rem;
+    }
 
-#about .wrap .qr-code{width: 100%;padding:1.25rem 1.125rem;}
-#about .wrap .qr-code img{width: 100%;}
+    #about .nav p {
+        width: 4.5rem;
+        font-weight: 700;
+        font-size: 1.125rem;
+    }
+
+    #about .wrap {
+        width: 100%;
+    }
+
+    #about .wrap .nav-bgc {
+        width: 100%;
+    }
+
+    #about .wrap .nav-bgc img {
+        position: relative;
+        width: 100%;
+    }
+
+    #about .wrap .nav-bgc .company-introduce {
+        position: absolute;
+        top: 10.625rem;
+        margin: 0 0.9375rem;
+        background-color: #fff;
+    }
+
+    /* 
+    #about .wrap .nav-bgc .company-introduce .company-name {
+        font-size: 1rem;
+        font-weight: 700;
+        text-align: center;
+        margin-top: 2.75rem;
+    } */
+    #about .wrap .nav-bgc .company-introduce p:nth-child(1) {
+        font-size: 1rem;
+        font-weight: 700;
+        text-align: center;
+        margin-top: 2.75rem;
+    }
+
+    #about .wrap .nav-bgc .company-introduce p.introduce-details {
+        font-size: 0.875rem;
+        text-indent: 2em;
+        padding: 0.625rem 0.75rem;
+        line-height: 1.5rem;
+    }
+
+    #about .wrap .nav-bgc .company-logo {
+        position: absolute;
+        top: 8.4375rem;
+        width: 100%;
+        padding: 0 1.25rem;
+    }
+
+    #about .wrap .nav-bgc .company-logo img {
+        border-radius: 50%;
+        width: 4.0625rem;
+        height: 4.0625rem;
+    }
+
+    #about .wrap .big-event {
+        width: 100%;
+        padding: 0 0.9375rem;
+        margin-top: 12.5rem;
+    }
+
+    #about .wrap .big-event .event-title p {
+        font-size: 1.5rem;
+        color: #ccc;
+        font-weight: 500;
+    }
+
+    #about .wrap .big-event .event-content {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 0.125rem solid rgba(0, 0, 0, 0.05);
+    }
+
+    #about .wrap .big-event .event-content:nth-child(3) {
+        border-bottom: 0;
+    }
+
+    #about .wrap .big-event .event-content .event-img {
+        width: 9.375rem;
+    }
+
+    #about .wrap .big-event .event-content .event-img img {
+        width: 100%;
+    }
+
+    #about .wrap .big-event .event-content .event-details {
+        width: 11.8125rem;
+    }
+
+    #about .wrap .big-event .event-content .event-details p {
+        padding-left: 0.8125rem;
+    }
+
+    #about .wrap .big-event .event-content .event-details p.head {
+        text-align: center;
+        font-size: 0.875rem;
+        font-weight: 700;
+    }
+
+    #about .wrap .big-event .event-content .event-details p.event-desc {
+        font-size: 0.8125rem;
+        padding-top: 0.625rem;
+        padding-left: 0.8125rem;
+        line-height: 1rem;
+    }
+
+    #about .wrap .qr-code {
+        width: 100%;
+        padding: 1.25rem 1.125rem;
+    }
+
+    #about .wrap .qr-code img {
+        width: 100%;
+    }
 </style>
 
 <body>
     <div id="about">
         <div class="nav flex justify-center">
-                <img src="./img/back.png" alt="back" @click="back">
+            <img src="./img/back.png" alt="back" @click="back">
             <p>关于会聚</p>
         </div>
         <div class="wrap">
@@ -50,12 +163,12 @@
             <div class="nav-bgc">
                 <img src="./img/company-bgc.png" alt="">
                 <div class="company-introduce">
-                    <div class="company-name">
+                    <!-- <div class="company-name">
                         杭州会友科技有限公司
                     </div>
                     <p class="introduce-details">
                         杭州会友科技有限公司是一家致力于行业移动解决方案的软件公司。主要提供行业解决方案的商业策略，咨询设计，定制研发等服务。核心团队成立于2012年，现已在宁波、台州等地设立分公司和办事处，技术人员60余人，已上线项目百余款。公司秉承着“精工细作，科技会友”的创业理念，致力做行业内领先的移动应用开发服务商。
-                    </p>
+                    </p> -->
                 </div>
                 <!-- 公司logo -->
                 <div class="company-logo flex justify-center">
@@ -79,42 +192,129 @@
                     </div>
                 </div>
                 <div class="event-content flex">
-                        <div class="event-img">
-                            <img src="./img/event-img.png" alt="img">
-                        </div>
-                        <div class="event-details">
-                            <p class="head">22岁的月入过万</p>
-                            <p class="event-desc">
-                                会聚人力毕业一年的学员现已月入过万，会聚人力毕业一年的学员现已月入过万，会聚人力毕业一年的学员现已月入过万，
-                            </p>
-                        </div>
+                    <div class="event-img">
+                        <img src="./img/event-img.png" alt="img">
                     </div>
+                    <div class="event-details">
+                        <p class="head">22岁的月入过万</p>
+                        <p class="event-desc">
+                            会聚人力毕业一年的学员现已月入过万，会聚人力毕业一年的学员现已月入过万，会聚人力毕业一年的学员现已月入过万，
+                        </p>
+                    </div>
+                </div>
             </div>
             <!-- 二维码 -->
             <div class="qr-code">
                 <img src="./img/QRCode.png" alt="QRCode">
             </div>
         </div>
-
     </div>
 </body>
 
-<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script type="text/javascript">
     var about = new Vue({
         el: '#about',
         data: {
+            companyName: '',
+            introduceDetails: ''
+        },
+        created() {
+            function fetch1() {
+                fetch(url + "/sysApi/SelIntroduce", {
+                        method: "post"
+                    })
+                    .then(res => {
+                        return res.json();
+                    })
+                    .then(data => {
+                        // console.log(data)
+                        var data = data.data;
+                        var company_introduce = document.getElementsByClassName("company-introduce")[0];
+                        company_introduce.innerHTML = data;
+                    })
+            }
 
+            function fetch2() {
+                // 客户端
+               
+                const request = new Request(url + "/sysApi/SelBigEvent?page=1&limit=10", {
+                    method: 'POST',
+                    headers: 'Access-Control-Allow-Origin',
+                });
+
+                // 这里我们先发起一个请求试一试
+                fetch(request)
+                    .then(response => {
+                        const {
+                            status,
+                            headers
+                        } = response;
+                        // document.getElementById('status').innerHTML = `${status}`;
+                        // document.getElementById('headers').innerHTML = headersToString(headers);
+
+                        return response.json();
+                    })
+                    .then(resData => {
+                        const {
+                            status,
+                            data
+                        } = resData;
+                        if (!status) {
+                            window.alert('发生了一个错误！');
+                            return;
+                        }
+                        console.log(data)
+                        // document.getElementById('fetch').innerHTML = data;
+                    });
+                // fetch(url + "/sysApi/SelBigEvent", {
+                //         method: "post", 
+                //         body:{
+                //         page:1,
+                //         limit:10
+                //         },
+                //         headers: 'Access-Control-Allow-Origin'
+
+                //         // haeaders: 'Access-Control-Allow-Origin'
+                //     })
+                //     .then(res => {
+                //         return res.json();
+                //     })
+                //     .then(data => {
+                //         var data = data.data;
+                //         console.log(data)
+                //         // let company_introduce = document.getElementsByClassName("company-introduce")[0];
+                //         // company_introduce.innerHTML = data;
+                //     })
+            }
+            fetch1();
+            fetch2();
         },
         methods: {
-            back:function(){
-                window.history.back(-1); 
-                window.location.href='./index.html';
+            back: function () {
+                window.history.back(-1);
+                window.location.href = './index.html';
             }
         },
 
     })
+
+    // 
+    //     $.ajax({
+    //         url: url+'/sysApi/SelWelcome',
+    //         data:{
+
+    //         },
+    //         type: 'post',
+    //         dataType: 'json',//重点在这里，加上这个属性就可以跨域请求了  dataType: 'json',
+    //         success: function (res) {
+    //             console.log(123)
+    //         },
+    //         error:(err)=>{
+    //             console.log(222)
+    //         }
+    //     })
 </script>
 
 </html>
