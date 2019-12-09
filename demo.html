@@ -23,13 +23,26 @@
 //            console.log(222)
 //        }
 //    })
-fetch("http://121.43.107.140:8104/hjwx/sysApi/SelIntroduce",{method:'post'}).then(data => {
-                    //text()方法属于fetchAPI的一部分，返回一个Promise实例对象，用于获取后台返回的数据
-                    return data.json();
-                })
-                .then(function (data){
-                    console.log(data)
-                    document.getElementById("fetch").insertAdjacentHTML("beforeend", data.data);
-                })
+// fetch("http://121.43.107.140:8104/hjwx/sysApi/SelIntroduce",{method:'post'}).then(data => {
+//                     //text()方法属于fetchAPI的一部分，返回一个Promise实例对象，用于获取后台返回的数据
+//                     return data.json();
+//                 })
+//                 .then(function (data){
+//                     console.log(data)
+//                     document.getElementById("fetch").insertAdjacentHTML("beforeend", data.data);
+//                 })
+let arr= [];
+let data=[{label:'绍兴 两年以上 本科'}];
+
+// console.log(arr)
+// console.log(arr[0])
+// console.log(arr[1])
+// console.log(arr[2])
+for(var i = 0;i<data.length;i++){
+    arr = data[0].label.split(" ");
+    console.log(arr[i])
+    // return arr;
+}
+
    </script>
 </html>

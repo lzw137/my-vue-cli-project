@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link href="https://cdn.bootcss.com/Swiper/4.5.1/css/swiper.min.css" rel="stylesheet"> 
     <script src="./js/rem.js"></script>
+    <script src="./js/url.js"></script>
 </head>
 <style>
 /*修改提示文字的颜色*/
@@ -119,10 +120,10 @@ input:-ms-input-placeholder {
                         <div class="swiper-slide" v-for="item in company">
                             <div class="company">
                                 <div class="logo-box flex justify-center">
-                                    <img :src="item.companyLogo" alt="logo">
+                                    <img :src="item.logo" alt="logo">
                                 </div>
                                 <div class="company-name">
-                                    <p v-text="item.name"></p>
+                                    <p>{{item.name}}</p>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +158,7 @@ input:-ms-input-placeholder {
             <!-- 你可能感兴趣的职位 -->
             <div class="interest">
                 <div class="tip">你可能感兴趣的职位</div>
-                <div class="interest-job flex" v-for="item in interest" @click="jump">
+                <div class="interest-job flex" v-for="(item,index) in interest" @click="jump">
                     <div class="job-left">
                         <p class="job-name" v-text="item.name"></p>
                         <p class="job-company" v-text="item.company"></p>
@@ -184,101 +185,191 @@ input:-ms-input-placeholder {
 <script src="https://cdn.bootcss.com/Swiper/4.5.1/js/swiper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script type="text/javascript">
-    var hot = new Vue({
-        el: '#hot',
-        data: {
-            company:[
-                {
-                companyLogo:'./img/gognslogo1.png',
-                name:'华森科技'
-            },{
-                companyLogo:'./img/gognslogo2.png',
-                name:'广发证券'
-            },{
-                companyLogo:'./img/gognslogo3.png',
-                name:'统一企业'
-            },{
-                companyLogo:'./img/gognslogo4.png',
-                name:'华为技术'
-            },
-            {
-                companyLogo:'./img/touxiang.png',
-                name:'融创'
-            },{
-                companyLogo:'./img/head1.png',
-                name:'赛诺菲中国'
-            },
-            {
-                companyLogo:'./img/head2.png',
-                name:'康恩贝英诺珐医药'
-            },{
-                companyLogo:'./img/head3.png',
-                name:'Fedex'
-            },
-            {
-                companyLogo:'./img/huiju.png',
-                name:'太平人寿微招聘'
-            },
-            ],
-            interest:[{
-            name:'Java开发工程师',
-            company:'会友科技',
-            address:'绍兴',
-            years:'两年以上',
-            education:'本科',
-            logo:'./img/gognslogo4.png',
-            salary:'9k-11k'
-            },
-            {
-            name:'Java开发工程师',
-            company:'会友科技',
-            address:'绍兴',
-            years:'两年以上',
-            education:'本科',
-            logo:'./img/gognslogo2.png',
-            salary:'9k-11k'
-            },
-            {
-            name:'Java开发工程师',
-            company:'会友科技',
-            address:'绍兴',
-            years:'两年以上',
-            education:'本科',
-            logo:'./img/gognslogo3.png',
-            salary:'9k-11k'
-            },
-            {
-            name:'Java开发工程师',
-            company:'会友科技',
-            address:'绍兴',
-            years:'两年以上',
-            education:'本科',
-            logo:'./img/huiju.png',
-            salary:'9k-11k'
-            },
-            ]
-            },
-            methods: {
-            jump:function(){
-            window.location.href='./jobDetails.html';
-            },
-            back:function(){
-            window.location.href='./index.html';
-            window.history.back(-1); 
-         }
-            },
-        },      
-       )
+var hot = new Vue({
+    el: '#hot',
+    data(){
+        return{
+        company:[
+        // {
+        //     logo:'./img/gognslogo1.png',
+        //     name:'华森科技'
+        // },
+        // {
+        //     logo:'./img/gognslogo2.png',
+        //     name:'广发证券'
+        // },{
+        //     logo:'./img/gognslogo3.png',
+        //     name:'统一企业'
+        // },{
+        //     logo:'./img/gognslogo4.png',
+        //     name:'华为技术'
+        // },
+        // {
+        //     logo:'./img/touxiang.png',
+        //     name:'融创'
+        // },{
+        //     logo:'./img/head1.png',
+        //     name:'赛诺菲中国'
+        // },
+        // {
+        //     logo:'./img/head2.png',
+        //     name:'康恩贝英诺珐医药'
+        // },
+        // {
+        //     logo:'./img/head3.png',
+        //     name:'Fedex'
+        // },
+        // {
+        //     logo:'./img/huiju.png',
+        //     name:'太平人寿微招聘'
+        // },
+        ],
+        interest:[
+        // {
+        // name:'Java开发工程师',
+        // company:'会友科技',
+        // address:'绍兴',
+        // years:'两年以上',
+        // education:'本科',
+        // logo:'./img/gognslogo4.png',
+        // salary:'9k-11k'
+        // },
+        // {
+        // name:'Java开发工程师',
+        // company:'会友科技',
+        // address:'绍兴',
+        // years:'两年以上',
+        // education:'本科',
+        // logo:'./img/gognslogo2.png',
+        // salary:'9k-11k'
+        // },
+        // {
+        // name:'Java开发工程师',
+        // company:'会友科技',
+        // address:'绍兴',
+        // years:'两年以上',
+        // education:'本科',
+        // logo:'./img/gognslogo3.png',
+        // salary:'9k-11k'
+        // },
+        // {
+        // name:'Java开发工程师',
+        // company:'会友科技',
+        // address:'绍兴',
+        // years:'两年以上',
+        // education:'本科',
+        // logo:'./img/huiju.png',
+        // salary:'9k-11k'
+        // },
+        ]
+    }
+        },
+        mounted(){
+        var that = this;
 
-    var swiper = new Swiper('.swiper-container', {
-    slidesPerView: 4,
-    loop:true,
-    autoplay: {
-    delay: 3000,
-    stopOnLastSlide: false,
-    disableOnInteraction: false,
-    },
-    });
+        function fetch1() {
+            fetch(url + "/dutyApi/selCompanyPage?page=1&limit=10", {
+            method: "post"
+            })
+            .then(res => {
+            return res.json();
+            })
+            .then(data => {
+                console.log(data)
+                var data = data.data;
+                that.company = data;
+                console.log(that.company)
+                for (let i = 0; i < that.company.length; i++) {
+                    that.company[i].logo = url + "/" + that.company[i].logo;
+                    that.company[i].name =that.company[i].name;
+                }
+                that.$nextTick(() => { // 下一个UI帧再初始化swiper
+                    initSwiper();
+                });
+                
+            })
+        }
+
+        function initSwiper(){
+            if (that.swiper != null) return;
+            var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 4,
+            loop:true,
+            autoplay: {
+            delay: 3000,
+            stopOnLastSlide: false,
+            disableOnInteraction: false,
+            },
+            initialSlide :0,
+            observer:true,//修改swiper自己或子元素时，自动初始化swiper
+            observeParents:true//修改swiper的父元素时，自动初始化swiper//修改swiper的父元素时，自动初始化swiper
+            });
+      }
+ 
+
+        function fetch2() {
+            fetch(url + "/dutyApi/selDuty?page=1&limit=10", {
+            method: "post",
+            })
+            .then(res => {
+            return res.json();
+            })
+            .then(data => {
+                // console.log(data)
+                data = data.data;
+                console.log(data)
+                // console.log(data[0].label)
+                that.interest = data;
+                // console.log(that.interest)
+                for(let i=0;i<that.interest.length;i++){
+                that.interest[i].name = that.interest[i].duty;
+                that.interest[i].company = that.interest[i].companyName;
+                that.interest[i].salary = that.interest[i].salaryRange; 
+                that.interest[i].logo =  that.company[3].logo;
+                let arr=[];
+                arr = that.interest[i].label.split(" ");
+                for(let j=0;j<arr.length;j++){
+                    // console.log(arr[j])
+                    that.interest[i].address = arr[0];
+                    that.interest[i].years = arr[1];
+                    that.interest[i].education = arr[2];
+                }
+            }
+                    
+            }) 
+        }
+        async function queryData(){
+            await fetch1();
+            await new Promise(function(resolve,reject){
+                setTimeout(function(){
+                    fetch2();
+                },100)
+            })
+           
+        }
+        queryData();
+        },
+        methods: {
+        jump:function(){
+        window.location.href='./jobDetails.html';
+        },
+        back:function(){
+        window.location.href='./index.html';
+        window.history.back(-1); 
+        }
+        },
+    },      
+    )
+
+// var swiper = new Swiper('.swiper-container', {
+//     slidesPerView: 4,
+//     loop:true,
+//     // autoplay: {
+//     // delay: 3000,
+//     // stopOnLastSlide: false,
+//     // disableOnInteraction: false,
+//     // },
+// });
 </script>
 
 </html>

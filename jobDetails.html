@@ -7,6 +7,7 @@
     <title>职位详情</title>
     <link rel="stylesheet" href="./css/reset.css">
     <script src="./js/rem.js"></script>
+    <script src="./js/url.js"></script>
 </head>
 <style>
     p{font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
@@ -26,7 +27,7 @@
     #job .wrap .job-details .brief p:nth-child(3) span:nth-child(1){color: #6984f5;background-color: #E8EDFF;}
     #job .wrap .job-details .brief p:nth-child(3) span:nth-child(2){color: #15b27e;background-color: #dcf7ee;margin: 0 0.5rem;}
     #job .wrap .job-details .brief p:nth-child(3) span:nth-child(3){color: #e27963;background-color: #ffece8;}
-    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(4){padding:0 0 0 2.6875rem;}
+    #job .wrap .job-details .brief p:nth-child(3) span:nth-child(4){padding:0 0 0 2.1875rem;}
     #job .wrap .job-details .brief p:nth-child(3) span:nth-child(4) em{color: red;font-size: 1.3125rem;padding-left: 0.3125rem;}
 
     #job .wrap .job-details .welfare{padding-bottom: 0.9375rem;}
@@ -35,8 +36,8 @@
     #job .wrap .job-details .welfare p:nth-child(2) span{padding-right: 0.9375rem;}
 
     #job .wrap .job-details .job-desc{padding-bottom: 2.125rem;}
-    #job .wrap .job-details .job-desc p{font-size: 1.5rem;color:#cfd0d1;font-weight: 500;}/*职位描述*/
-    #job .wrap .job-details .job-desc span{display:block;font-size: 0.875rem;padding-top: 0.875rem;}
+    #job .wrap .job-details .job-desc p.job-desc-title{font-size: 1.5rem;color:#cfd0d1;font-weight: 500;}/*职位描述*/
+    #job .wrap .job-details .job-desc span p{display:block;font-size: 0.875rem;padding-top: 0.875rem;}
 
     #job .wrap .job-details .job-address{padding-bottom: 0.625rem;}
     #job .wrap .job-details .job-address p:nth-child(1){font-size: 1.5rem;color:#cfd0d1;font-weight: 500;}
@@ -55,42 +56,42 @@
             <p>职位详情</p>
         </div>
         <div class="wrap">
-            <img class="job-backgroud" src="./img/job_details.png" alt="">
+            <img class="job-backgroud" :src="jobDesc.jobBackgroud" alt="">
             <div class="job-details">
                 <div class="brief">
-                    <p>Java开发工程师</p>
-                    <p>会友科技</p>
+                    <p>{{brief.duty}}</p>
+                    <p>{{brief.companyName}}</p>
                     <p>
-                        <span>绍兴</span>
-                        <span>2年以上</span>
-                        <span>本科</span>
-                        <span>薪资<em>9k-11k</em></span>
+                        <span>{{brief.address}}</span>
+                        <span>{{brief.years}}</span>
+                        <span>{{brief.education}}</span>
+                        <span>薪资<em>{{brief.salaryRange}}</em></span>
                     </p>
                 </div>
                 <div class="welfare">
                     <p>福利介绍</p>
                     <p>
-                        <span>五险一金</span>
-                        <span>绩效奖金</span>
-                        <span>双休</span>
-                        <span>加班补贴</span>
+                        <span v-for="(item,index) in jobDesc.welfareIntro" v-text="item"></span>
+                        <!-- <span v-text="jobDesc.welfare2"></span>
+                        <span v-text="jobDesc.welfare3"></span>
+                        <span v-text="jobDesc.welfare4"></span> -->
                     </p>
                 </div>
                 <div class="job-desc">
-                    <p>职位描述</p>
-                    <span>
-                        1.具有扎实的Java基础，熟练掌握io,多线程并发。<br>
+                    <p class="job-desc-title">职位描述</p>
+                    <span v-html='jobDesc.dutyDetail'>
+                        <!-- 1.具有扎实的Java基础，熟练掌握io,多线程并发。<br>
                         2.熟练使用Spring/Hibernate等热门开源框架<br>
                         3.熟练使用Spring/Hibernate等热门开源框架<br>
                         4.熟练使用Spring/Hibernate等热门开源框架<br>
                         5.熟练使用Spring/Hibernate等热门开源框架<br>
                         6.熟练使用Spring/Hibernate等热门开源框架<br>
-                        7.熟练使用Spring/Hibernate等热门开源框架<br>
+                        7.熟练使用Spring/Hibernate等热门开源框架<br> -->
                     </span>
                 </div>
                 <div class="job-address">
                     <p>工作地址</p>
-                    <p>浙江省绍兴市越城区金滩大厦3楼</p>    
+                    <p v-text="jobDesc.workAddress"></p>    
                     <div>
                         <img src="./img/company.png" alt="">
                     </div>
@@ -109,8 +110,49 @@
 <script>
     var job = new Vue({
         el:'#job',
-        data:{
-
+        data(){
+            return{
+                brief:[],
+                jobDesc:[
+                  
+                ]
+            }            
+        },
+        created(){
+            var that = this;
+            fetch1();
+            function fetch1(){
+                fetch(url + "/dutyApi/selDutyDetail?id=1", {
+                method: "post",
+                })
+                .then(function(res){
+                return res.json();
+                })
+                .then(function(data) {
+                    console.log(data)
+                    // 职位简介
+                    that.brief=data.data[0];
+                    console.log(that.brief)
+                    //职位福利及描述
+                    that.jobDesc = data.data[1];
+                    console.log(that.jobDesc)
+                    //简介标签
+                    let arr1=[];
+                    arr1 = that.brief.label.split(" ");
+                    for(let i=0;i<arr1.length;i++){
+                        that.brief.address = arr1[0];
+                        that.brief.years = arr1[1];
+                        that.brief.education = arr1[2];
+                    }
+                    //福利待遇标签分离
+                    let arr2=[];
+                    arr2 = that.jobDesc.welfare.split(" ");
+                    that.jobDesc.welfareIntro = arr2;
+                    //背景图片
+                    that.jobDesc.jobBackgroud = url+"/"+that.jobDesc.backgroundImg;     
+                })
+            }
+            
         },
         methods: {
             back:function(){

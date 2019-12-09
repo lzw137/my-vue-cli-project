@@ -7,6 +7,7 @@
     <title>优秀学员</title>
     <link rel="stylesheet" href="./css/reset.css">
     <script src="./js/rem.js"></script>
+    <script src="./js/url.js"></script>
 </head>
 <style>
     #app{width: 100%;min-width: 20rem;}
@@ -102,6 +103,21 @@
             experience:'半年'
         }]
 
+     },
+     mounted(){
+         var that = this;
+        fetch1();
+        function fetch1(){
+            fetch(url+"/studentApi/selStudent?page=1&limit=10",{method:'post'})
+            .then(function(res){
+                return res.json();
+            })
+            .then(function(data){
+                console.log(data.data)
+                // that.stuInfo = data.data;
+                console.log(that.stuInfo)
+            })
+        }
      },
      methods: {
          jump:function(){

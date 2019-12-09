@@ -7,6 +7,7 @@
     <title>入职详情</title>
     <link rel="stylesheet" href="./css/reset.css">
     <script src="./js/rem.js"></script>
+    <script src="./js/url.js"></script>
 </head>
 <style>
 #entry{width: 100%;}
@@ -94,6 +95,21 @@
          brief:'简介：性格活泼开朗，喜欢运动，对待工作有热情，有积极性，喜欢挑战。',
          company_desc:'杭州会友科技有限公司是一家致力于行业移动解决方案的软件公司。主要提供行业解决方案的商业策略，咨询设计，定制研发等服务。核心团队成立于2012年，现已在宁波、台州等地设立分公司和办事处，技术人员60余人，已上线项目百余款。公司秉承着“精工细作，科技会友”的创业理念，致力做行业内领先的移动应用开发服务商。',
          company_img:'./img/company-img.png',
+     },
+     mounted(){
+        var that = this;
+        fetch1();
+        function fetch1(){
+            fetch(url+"/studentApi/selStudentDetail?id=1",{method:'post'})
+            .then(function(res){
+                return res.json();
+            })
+            .then(function(data){
+                console.log(data.data)
+                // that.stuInfo = data.data;
+                console.log(that.name)
+            })
+        }
      },
      methods: {
          back:function(){
