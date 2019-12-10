@@ -79,6 +79,12 @@
         },
         mounted:function(){
             this.time=new Date();
+            console.log(this.time )
+            // var arr= this.time.split(" ");
+            var time = JSON.stringify(this.time);
+            console.log(time)
+            // let arr = time.split("");
+            // console.log(arr)
             fetch(url+"/sysApi/SelWelcome",{method:'post'})
             .then(res=>{
                 return res.json();

@@ -28,7 +28,7 @@
     
     #app .wrap ul li div.stuInfo p.experience{font-size: 0.875rem;}
     #app .wrap ul li div.stuInfo p.experience span:nth-child(1){color:#3a84e9;}
-    #app .wrap ul li div.stuInfo p.experience span:nth-child(2){color:#23b461;padding:0rem 0.625rem;}
+    #app .wrap ul li div.stuInfo p.experience span:nth-child(2){color:#23b461;padding:0rem 0.5rem;}
     #app .wrap ul li div.stuInfo p.experience span:nth-child(3){color:#f3835f;}
     
 </style>
@@ -39,23 +39,23 @@
             <p>优秀学员</p>
         </div>
         <div class="wrap">
-            <ul>
-                <li class="flex" v-for="item in stuInfo" @click="jump">
+            <ul v-for="(item,index) in stuInfo">
+                <li class="flex"  @click="jump(item.id)">
                     <!-- 头像 -->
                     <div class="headImg flex">
                         <img :src="item.headImg" alt="">
                     </div>
                     <!-- 学生信息 -->
                     <div class="stuInfo">
-                        <p class="jobPosition" v-text="item.jobPosition"></p>
+                        <p class="jobPosition" v-text="item.duty+'-'+item.name"></p>
                         <p class="company flex justify-between">
                             <span v-text="'入职公司:'+item.company"></span>
                             <img src="./img/more.png" alt="">
                         </p>
                         <p class="experience">
-                            <span v-text="'薪资待遇:'+item.salary"></span>
+                            <span v-text="'薪资待遇:'+item.salary+'k'"></span>
                             <span v-text="'学历:'+item.education">学历：本科</span>
-                            <span v-text="'工作经验:'+item.experience"></span>
+                            <span v-text="'工作经验:'+item.workExperience"></span>
                         </p>
                     </div>
                 </li>
@@ -69,39 +69,10 @@
 <script>
  var app = new Vue({
      el:'#app',
-     data:{
-        stuInfo:[{
-            headImg:'./img/head1.png',
-            jobPosition:'Java开发工程师-黄一璐',
-            company:'浙江百代信息技术有限公司',
-            salary:'8K',
-            education:'本科',
-            experience:'半年'
-        },
-        {
-            headImg:'./img/head2.png',
-            jobPosition:'Html前端开发-张三斤',
-            company:'浙江百代信息技术有限公司',
-            salary:'8K',
-            education:'本科',
-            experience:'半年'
-        },
-        {
-            headImg:'./img/head3.png',
-            jobPosition:'项目经理-杨不凡',
-            company:'浙江百代信息技术有限公司',
-            salary:'8K',
-            education:'本科',
-            experience:'半年'
-        },
-        {
-            headImg:'./img/touxiang.png',
-            jobPosition:'Java开发工程师-周不易',
-            company:'浙江百代信息技术有限公司',
-            salary:'8K',
-            education:'本科',
-            experience:'半年'
-        }]
+     data(){
+         return{
+        stuInfo:[]
+    }
 
      },
      mounted(){
@@ -114,18 +85,25 @@
             })
             .then(function(data){
                 console.log(data.data)
-                // that.stuInfo = data.data;
-                console.log(that.stuInfo)
+                that.stuInfo = data.data;
+                for(let i =0;i<that.stuInfo.length;i++){
+                    that.stuInfo[i].headImg = url+"/"+that.stuInfo[i].img;
+                    that.stuInfo[i].salary = that.stuInfo[i].salary/1000;
+                }
+
+                // console.log(that.stuInfo)
+                
+
             })
         }
      },
      methods: {
-         jump:function(){
-           window.location.href='./entryDetails.html'
+         jump:function(id){
+             console.log(id)
+           window.location.href="entryDetails.html?id="+id;
          },
          back:function(){
             window.location.href='./index.html';
-            window.history.back(-1); 
          }
      },
      

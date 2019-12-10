@@ -31,7 +31,7 @@
 #entry .wrap .company-details .title{padding-left: 1.25rem;}
 #entry .wrap .company-details .title img{width: 1.1875rem;height: 1.125rem;margin-top: 0.5rem;}
 #entry .wrap .company-details .title p{padding-left:0.5rem;padding-top:0.5rem;font-size: 1rem;font-weight: bold;font-family:'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;}
-#entry .wrap .company-details .commpany-desc{padding: 0.9375rem;font-size: 0.9375rem;color: #525252;text-indent: 2em;line-height: 1.5rem;}
+#entry .wrap .company-details .commpany-desc span p{padding: 0.9375rem;font-size: 0.9375rem;color: #525252;text-indent: 2em;line-height: 1.5rem;}
 #entry .wrap .company-details .company-img{padding: 0 0.9375rem;}
 #entry .wrap .company-details .company-img img{width:100%;}
 
@@ -49,18 +49,18 @@
                 <div class="id-box">
                     <div class="idInfo flex">
                         <div class="headImg flex">
-                            <img src="./img/head1.png" alt="">
+                            <img :src="idInfo.headImg" alt="">
                         </div>
                         <div class="stuInfo">
-                            <p class="name" v-text="name"></p>
+                            <p class="name" v-text="idInfo.name"></p>
                             <p class="experience"> 
-                                <span v-text="education"></span>
-                                <span v-text="'薪资：'+salary"></span>
+                                <span v-text="idInfo.education"></span>
+                                <span v-text="'薪资：'+idInfo.salary+'k'"></span>
                             </p>
-                            <p v-text="'毕业于'+graduated"></p>
+                            <p v-text="'毕业于'+idInfo.graduated"></p>
                         </div>
                     </div>
-                    <div class="brief" v-text="brief"></div>
+                    <div class="brief" v-text="idInfo.brief"></div>
                 </div>
 
             </div>
@@ -72,10 +72,10 @@
                 </div>
                 <!-- 具体描述 -->
                 <div class="commpany-desc">
-                    <span v-text="company_desc"></span>
+                    <span v-html="companyDetails.companyDetail"></span>
                 </div>
                 <div class="company-img">
-                    <img :src="company_img" alt="">
+                    <img :src="companyDetails.companyImg" alt="">
                 </div>
             </div>
         </div>
@@ -85,29 +85,56 @@
 <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script type="text/javascript">
+// var id="id";
+function getUrl(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        //if(r != null) return unescape(r[2]);
+        if(r != null) return decodeURIComponent(r[2]);
+        return null;
+    }
+        // console.log(getUrl(id))
+        // getUrl(id)
+        
+
  var entry = new Vue({
      el:'#entry',
-     data:{
-         name:'黄一璐',
-         education:'本科',
-         salary:'8k',
-         graduated:'浙江大学城学院',
-         brief:'简介：性格活泼开朗，喜欢运动，对待工作有热情，有积极性，喜欢挑战。',
-         company_desc:'杭州会友科技有限公司是一家致力于行业移动解决方案的软件公司。主要提供行业解决方案的商业策略，咨询设计，定制研发等服务。核心团队成立于2012年，现已在宁波、台州等地设立分公司和办事处，技术人员60余人，已上线项目百余款。公司秉承着“精工细作，科技会友”的创业理念，致力做行业内领先的移动应用开发服务商。',
-         company_img:'./img/company-img.png',
+     data(){
+         return{
+             idInfo:[],
+             companyDetails:[],
+         }
+       
      },
      mounted(){
         var that = this;
+        
+        
         fetch1();
         function fetch1(){
-            fetch(url+"/studentApi/selStudentDetail?id=1",{method:'post'})
+            fetch(url+"/studentApi/selStudentDetail?id="+getUrl("id"),{method:'post'})
             .then(function(res){
+                
                 return res.json();
             })
             .then(function(data){
                 console.log(data.data)
-                // that.stuInfo = data.data;
-                console.log(that.name)
+                that.idInfo = data.data[0];
+                that.companyDetails = data.data[1];
+                //入职人物相关信息详情
+                if(that.companyDetails.isMask == 1){
+                    //isMask == 1遮罩
+                    that.idInfo.headImg = url+'/'+ that.companyDetails.imgMask;
+                }else if(that.companyDetails.isMask == 2){
+                    //isMask == 2不遮罩
+                    that.idInfo.headImg = url+'/'+ that.companyDetails.headImg;
+                }
+                // that.idInfo.headImg = url+'/'+ that.companyDetails.headImg;
+                that.idInfo.salary = that.idInfo.salary/1000;
+                that.idInfo.graduated = that.companyDetails.school;
+                that.idInfo.brief = that.companyDetails.introduce;
+                //入职公司相关信息
+                that.companyDetails.companyImg = url+"/"+that.companyDetails.companyImg;
             })
         }
      },

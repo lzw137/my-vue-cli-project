@@ -189,79 +189,8 @@ var hot = new Vue({
     el: '#hot',
     data(){
         return{
-        company:[
-        // {
-        //     logo:'./img/gognslogo1.png',
-        //     name:'华森科技'
-        // },
-        // {
-        //     logo:'./img/gognslogo2.png',
-        //     name:'广发证券'
-        // },{
-        //     logo:'./img/gognslogo3.png',
-        //     name:'统一企业'
-        // },{
-        //     logo:'./img/gognslogo4.png',
-        //     name:'华为技术'
-        // },
-        // {
-        //     logo:'./img/touxiang.png',
-        //     name:'融创'
-        // },{
-        //     logo:'./img/head1.png',
-        //     name:'赛诺菲中国'
-        // },
-        // {
-        //     logo:'./img/head2.png',
-        //     name:'康恩贝英诺珐医药'
-        // },
-        // {
-        //     logo:'./img/head3.png',
-        //     name:'Fedex'
-        // },
-        // {
-        //     logo:'./img/huiju.png',
-        //     name:'太平人寿微招聘'
-        // },
-        ],
-        interest:[
-        // {
-        // name:'Java开发工程师',
-        // company:'会友科技',
-        // address:'绍兴',
-        // years:'两年以上',
-        // education:'本科',
-        // logo:'./img/gognslogo4.png',
-        // salary:'9k-11k'
-        // },
-        // {
-        // name:'Java开发工程师',
-        // company:'会友科技',
-        // address:'绍兴',
-        // years:'两年以上',
-        // education:'本科',
-        // logo:'./img/gognslogo2.png',
-        // salary:'9k-11k'
-        // },
-        // {
-        // name:'Java开发工程师',
-        // company:'会友科技',
-        // address:'绍兴',
-        // years:'两年以上',
-        // education:'本科',
-        // logo:'./img/gognslogo3.png',
-        // salary:'9k-11k'
-        // },
-        // {
-        // name:'Java开发工程师',
-        // company:'会友科技',
-        // address:'绍兴',
-        // years:'两年以上',
-        // education:'本科',
-        // logo:'./img/huiju.png',
-        // salary:'9k-11k'
-        // },
-        ]
+        company:[],
+        interest:[]
     }
         },
         mounted(){
@@ -327,7 +256,7 @@ var hot = new Vue({
                 that.interest[i].salary = that.interest[i].salaryRange; 
                 that.interest[i].logo =  that.company[3].logo;
                 let arr=[];
-                arr = that.interest[i].label.split(" ");
+                arr = (that.interest[i].label||"").split(" ");
                 for(let j=0;j<arr.length;j++){
                     // console.log(arr[j])
                     that.interest[i].address = arr[0];
