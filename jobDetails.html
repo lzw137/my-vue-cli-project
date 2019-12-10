@@ -108,21 +108,27 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <script>
+    
+    function getUrl(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        //if(r != null) return unescape(r[2]);
+        if(r != null) return decodeURIComponent(r[2]);
+        return null;
+    }
     var job = new Vue({
         el:'#job',
         data(){
             return{
                 brief:[],
-                jobDesc:[
-                  
-                ]
+                jobDesc:[]
             }            
         },
         created(){
             var that = this;
             fetch1();
             function fetch1(){
-                fetch(url + "/dutyApi/selDutyDetail?id=1", {
+                fetch(url + "/dutyApi/selDutyDetail?id="+getUrl("id"), {
                 method: "post",
                 })
                 .then(function(res){
@@ -149,7 +155,7 @@
                     arr2 = that.jobDesc.welfare.split(" ");
                     that.jobDesc.welfareIntro = arr2;
                     //背景图片
-                    that.jobDesc.jobBackgroud = url+"/"+that.jobDesc.backgroundImg;     
+                    that.jobDesc.jobBackgroud = url1+that.jobDesc.backgroundImg;     
                 })
             }
             

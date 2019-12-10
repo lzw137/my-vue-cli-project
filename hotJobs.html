@@ -158,7 +158,7 @@ input:-ms-input-placeholder {
             <!-- 你可能感兴趣的职位 -->
             <div class="interest">
                 <div class="tip">你可能感兴趣的职位</div>
-                <div class="interest-job flex" v-for="(item,index) in interest" @click="jump">
+                <div class="interest-job flex" v-for="(item,index) in interest" @click="jump(item.id)">
                     <div class="job-left">
                         <p class="job-name" v-text="item.name"></p>
                         <p class="job-company" v-text="item.company"></p>
@@ -209,7 +209,7 @@ var hot = new Vue({
                 that.company = data;
                 console.log(that.company)
                 for (let i = 0; i < that.company.length; i++) {
-                    that.company[i].logo = url + "/" + that.company[i].logo;
+                    that.company[i].logo = url1 + that.company[i].logo;
                     that.company[i].name =that.company[i].name;
                 }
                 that.$nextTick(() => { // 下一个UI帧再初始化swiper
@@ -254,7 +254,7 @@ var hot = new Vue({
                 that.interest[i].name = that.interest[i].duty;
                 that.interest[i].company = that.interest[i].companyName;
                 that.interest[i].salary = that.interest[i].salaryRange; 
-                that.interest[i].logo =  that.company[3].logo;
+                that.interest[i].logo =  that.company[i].logo;
                 let arr=[];
                 arr = (that.interest[i].label||"").split(" ");
                 for(let j=0;j<arr.length;j++){
@@ -263,8 +263,7 @@ var hot = new Vue({
                     that.interest[i].years = arr[1];
                     that.interest[i].education = arr[2];
                 }
-            }
-                    
+            }                 
             }) 
         }
         async function queryData(){
@@ -279,26 +278,16 @@ var hot = new Vue({
         queryData();
         },
         methods: {
-        jump:function(){
-        window.location.href='./jobDetails.html';
+        jump:function(id){
+        window.location.href='./jobDetails.html?id='+id;
         },
         back:function(){
-        window.location.href='./index.html';
-        window.history.back(-1); 
+        window.location.href='./index.html'; 
         }
         },
     },      
     )
 
-// var swiper = new Swiper('.swiper-container', {
-//     slidesPerView: 4,
-//     loop:true,
-//     // autoplay: {
-//     // delay: 3000,
-//     // stopOnLastSlide: false,
-//     // disableOnInteraction: false,
-//     // },
-// });
 </script>
 
 </html>

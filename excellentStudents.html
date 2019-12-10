@@ -87,12 +87,10 @@
                 console.log(data.data)
                 that.stuInfo = data.data;
                 for(let i =0;i<that.stuInfo.length;i++){
-                    that.stuInfo[i].headImg = url+"/"+that.stuInfo[i].img;
+                    that.stuInfo[i].headImg = "http://121.43.107.140:8104/"+that.stuInfo[i].img;
                     that.stuInfo[i].salary = that.stuInfo[i].salary/1000;
                 }
-
-                // console.log(that.stuInfo)
-                
+                // console.log(that.stuInfo)             
 
             })
         }

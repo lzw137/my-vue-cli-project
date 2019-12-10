@@ -85,7 +85,7 @@
 <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script type="text/javascript">
-// var id="id";
+
 function getUrl(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg);
@@ -93,8 +93,6 @@ function getUrl(name) {
         if(r != null) return decodeURIComponent(r[2]);
         return null;
     }
-        // console.log(getUrl(id))
-        // getUrl(id)
         
 
  var entry = new Vue({
@@ -108,7 +106,6 @@ function getUrl(name) {
      },
      mounted(){
         var that = this;
-        
         
         fetch1();
         function fetch1(){
@@ -124,17 +121,16 @@ function getUrl(name) {
                 //入职人物相关信息详情
                 if(that.companyDetails.isMask == 1){
                     //isMask == 1遮罩
-                    that.idInfo.headImg = url+'/'+ that.companyDetails.imgMask;
+                    that.idInfo.headImg =url1 + that.companyDetails.imgMask;
                 }else if(that.companyDetails.isMask == 2){
                     //isMask == 2不遮罩
-                    that.idInfo.headImg = url+'/'+ that.companyDetails.headImg;
+                    that.idInfo.headImg =url1 + that.companyDetails.headImg;
                 }
-                // that.idInfo.headImg = url+'/'+ that.companyDetails.headImg;
                 that.idInfo.salary = that.idInfo.salary/1000;
                 that.idInfo.graduated = that.companyDetails.school;
                 that.idInfo.brief = that.companyDetails.introduce;
                 //入职公司相关信息
-                that.companyDetails.companyImg = url+"/"+that.companyDetails.companyImg;
+                that.companyDetails.companyImg = url1 +that.companyDetails.companyImg;
             })
         }
      },

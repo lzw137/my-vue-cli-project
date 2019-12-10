@@ -129,3 +129,18 @@
              company_desc:'杭州会友科技有限公司是一家致力于行业移动解决方案的软件公司。主要提供行业解决方案的商业策略，咨询设计，定制研发等服务。核心团队成立于2012年，现已在宁波、台州等地设立分公司和办事处，技术人员60余人，已上线项目百余款。公司秉承着“精工细作，科技会友”的创业理念，致力做行业内领先的移动应用开发服务商。',
              company_img:'./img/company-img.png',
 ```
+
+```
+1.具有扎实的Java基础，熟练掌握io,多线程并发。熟练使用Spring/Hibernate等热门开源框架
+2.熟练使用Spring/Hibernate等热门开源框架
+3.熟练使用Spring/Hibernate等热门开源框架
+4.熟练使用Spring/Hibernate等热门开源框架
+5.熟练使用Spring/Hibernate等热门开源框架
+6.熟练使用Spring/Hibernate等热门开源框架
+7.熟练使用Spring/Hibernate等热门开源框架
+```
+
+2019/12/10
+- 完成entryDetails,excellentStudents接口，分页接口未实现
+- 完成jobDetails,hotJobs部分接口，实现跳转，分类标签接口未实现
+

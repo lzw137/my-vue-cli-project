@@ -144,7 +144,7 @@
                 <div class="event-title">
                     <p>公司大事件</p>
                 </div>
-                <div class="event-content flex" v-for="(item,index) in bigEvent">
+                <div class="event-content flex" v-for="(item,index) in bigEvent" @click=jump(item)>
                     <div class="event-img">
                         <img :src="item.img" alt="img">
                     </div>
@@ -155,17 +155,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="event-content flex">
-                    <div class="event-img">
-                        <img src="./img/event-img.png" alt="img">
-                    </div>
-                    <div class="event-details">
-                        <p class="head">22岁的月入过万</p>
-                        <p class="event-desc">
-                            会聚人力毕业一年的学员现已月入过万，会聚人力毕业一年的学员现已月入过万，会聚人力毕业一年的学员现已月入过万，
-                        </p>
-                    </div>
-                </div> -->
             </div>
             <!-- 二维码 -->
             <div class="qr-code">
@@ -216,7 +205,7 @@
                         console.log(data)
                         that.bigEvent = data;
                         for (let i = 0; i < data.length; i++) {
-                            that.bigEvent[i].img = url + "/" + that.bigEvent[i].img;
+                            that.bigEvent[i].img = url1 + that.bigEvent[i].img;
                         }
                     })
             }
@@ -227,26 +216,19 @@
             back: function () {
                 window.history.back(-1);
                 window.location.href = './index.html';
+            },
+            jump:function(item){
+                if(item.isLink==1){
+                    window.location.href = "http://"+item.url;
+                }
+                else{
+                    console.log("isLink!=1不跳转")
+                }
             }
         },
 
     })
 
-    // 
-    //     $.ajax({
-    //         url: url+'/sysApi/SelWelcome',
-    //         data:{
-
-    //         },
-    //         type: 'post',
-    //         dataType: 'json',//重点在这里，加上这个属性就可以跨域请求了  dataType: 'json',
-    //         success: function (res) {
-    //             console.log(123)
-    //         },
-    //         error:(err)=>{
-    //             console.log(222)
-    //         }
-    //     })
 </script>
 
 </html>
