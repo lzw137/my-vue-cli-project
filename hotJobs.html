@@ -8,6 +8,7 @@
     <title>热招职位</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link href="https://cdn.bootcss.com/Swiper/4.5.1/css/swiper.min.css" rel="stylesheet"> 
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="./js/rem.js"></script>
     <script src="./js/url.js"></script>
 </head>
@@ -83,15 +84,18 @@ input:-ms-input-placeholder {
 #hot .wrap .interest .interest-job .job-left p{font-size: 0.875rem;}
 #hot .wrap .interest .interest-job .job-left p.job-name{font-size: 1rem;font-weight: 700;}
 #hot .wrap .interest .interest-job .job-left p.job-company{padding: 0.5rem 0;color: rgba(0,0,0,0.5);}
-#hot .wrap .interest .interest-job .job-left p.job-experience span{font-size:0.75rem;padding: 0.1875rem 0.5rem;border-radius: 0.2188rem;}
-#hot .wrap .interest .interest-job .job-left p.job-experience span:nth-child(1){color: #6984f5;background-color: #E8EDFF;}
-#hot .wrap .interest .interest-job .job-left p.job-experience span:nth-child(2){color: #15b27e;background-color: #dcf7ee;margin: 0 0.3125rem;}
-#hot .wrap .interest .interest-job .job-left p.job-experience span:nth-child(3){color: #e27963;background-color: #ffece8;}
+#hot .wrap .interest .interest-job .job-left p.job-experience span{font-size:0.75rem;padding: 0.1875rem 0.5rem;border-radius: 0.2188rem;display: inline-block;}
+#hot .wrap .interest .interest-job .job-left p.job-experience span.address{color: #6984f5;background-color: #E8EDFF;width:3.125rem;text-align:center; overflow: hidden;text-overflow:ellipsis;white-space: nowrap;vertical-align: bottom;}
+#hot .wrap .interest .interest-job .job-left p.job-experience span.address.addressWidth{width:4.25rem;}
+/* width:4.375rem;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;vertical-align: bottom; */
+#hot .wrap .interest .interest-job .job-left p.job-experience span.years{color: #15b27e;background-color: #dcf7ee;margin: 0 0.3125rem;}
+#hot .wrap .interest .interest-job .job-left p.job-experience span.education{color: #e27963;background-color: #ffece8;}
 
 #hot .wrap .interest .interest-job .job-right{width: 30%;}
 #hot .wrap .interest .interest-job .job-right .job-logo{width: 100%;}
 #hot .wrap .interest .interest-job .job-right .job-logo img{width: 2.5rem;height: 2.5rem;}
 #hot .wrap .interest .interest-job .job-right p{font-size: 1.125rem; color:#4C87FA;text-align: center;padding-top:0.625rem;}
+
 
 </style>
 <body>
@@ -158,10 +162,10 @@ input:-ms-input-placeholder {
             <!-- 你可能感兴趣的职位 -->
             <div class="interest">
                 <div class="tip">你可能感兴趣的职位</div>
-                <div class="interest-job flex" v-for="(item,index) in interest" @click="jump(item.id)">
+                <div class="interest-job flex" v-for="(item,index) in interest" @click="jump(item.duty.id)">
                     <div class="job-left">
                         <p class="job-name" v-text="item.name"></p>
-                        <p class="job-company" v-text="item.company"></p>
+                        <p class="job-company" v-text="item.companyName"></p>
                         <p class="job-experience">
                             <span class="address" v-text="item.address"></span>
                             <span class="years" v-text="item.years"></span>
@@ -178,6 +182,7 @@ input:-ms-input-placeholder {
             </div>
 
         </div>
+     
     </div>
 </body>
 
@@ -190,12 +195,12 @@ var hot = new Vue({
     data(){
         return{
         company:[],
-        interest:[]
-    }
-        },
+        interest:[],
+        }
+    },
         mounted(){
         var that = this;
-
+// 查询热门雇主的数据
         function fetch1() {
             fetch(url + "/dutyApi/selCompanyPage?page=1&limit=10", {
             method: "post"
@@ -204,10 +209,9 @@ var hot = new Vue({
             return res.json();
             })
             .then(data => {
-                console.log(data)
                 var data = data.data;
                 that.company = data;
-                console.log(that.company)
+                // console.log(that.company)
                 for (let i = 0; i < that.company.length; i++) {
                     that.company[i].logo = url1 + that.company[i].logo;
                     that.company[i].name =that.company[i].name;
@@ -218,7 +222,7 @@ var hot = new Vue({
                 
             })
         }
-
+// 初始化轮播
         function initSwiper(){
             if (that.swiper != null) return;
             var swiper = new Swiper('.swiper-container', {
@@ -235,34 +239,52 @@ var hot = new Vue({
             });
       }
  
-
+// 查询具体职位
         function fetch2() {
             fetch(url + "/dutyApi/selDuty?page=1&limit=10", {
-            method: "post",
+                method: "post",
             })
             .then(res => {
             return res.json();
             })
             .then(data => {
-                // console.log(data)
                 data = data.data;
-                console.log(data)
-                // console.log(data[0].label)
                 that.interest = data;
-                // console.log(that.interest)
+                console.log(that.interest)
                 for(let i=0;i<that.interest.length;i++){
-                that.interest[i].name = that.interest[i].duty;
-                that.interest[i].company = that.interest[i].companyName;
-                that.interest[i].salary = that.interest[i].salaryRange; 
-                that.interest[i].logo =  that.company[i].logo;
-                let arr=[];
-                arr = (that.interest[i].label||"").split(" ");
-                for(let j=0;j<arr.length;j++){
-                    // console.log(arr[j])
-                    that.interest[i].address = arr[0];
-                    that.interest[i].years = arr[1];
-                    that.interest[i].education = arr[2];
-                }
+                that.interest[i].companyName = that.interest[i].duty.companyName;//公司名称
+                that.interest[i].name = that.interest[i].duty.duty;//职位名称
+                that.interest[i].salary = that.interest[i].duty.salaryRange;//工资范围 
+                that.interest[i].logo = url1 + that.interest[i].company.logo;//logo
+                var arr = [];
+                arr = that.interest[i].label;
+                 //     /*标签*/
+                that.interest[i].address = "";
+                var addressArr = [];
+                    for(let j=0;j<arr.length;j++){
+                        if(arr[j].classify==1){
+                            that.interest[i].address+=arr[j].name+" ";
+                            addressArr.push(arr[j].name) 
+                          
+                        }else if(arr[j].classify==2){
+                            that.interest[i].years = arr[j].name;
+                        }else if(arr[j].classify==3){
+                            that.interest[i].education = arr[j].name;
+                        }
+                        
+                    }
+                    let addressName = '';
+                    if(addressArr.length == 1){ 
+                        addressName += addressArr[0]
+                         }
+                    if(addressArr.length > 1){
+                    //   that.changeStyle();
+                    // $(".interest-job .address").addClass("addressWidth");
+                        for(let k = 0;k<addressArr.length;k++){
+                            addressName += addressArr[k]+','
+                        }
+                    }
+           
             }                 
             }) 
         }
@@ -273,7 +295,6 @@ var hot = new Vue({
                     fetch2();
                 },100)
             })
-           
         }
         queryData();
         },
@@ -283,7 +304,8 @@ var hot = new Vue({
         },
         back:function(){
         window.location.href='./index.html'; 
-        }
+        },
+       
         },
     },      
     )

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        /* v-clock解决页面闪烁问题,使用v-clock可以使请求页面暂不加载，mounted后再显示 */
+        [v-cloak]{
+            display: none
+        }
+    </style>
+</head>
+<body>
+  <!--用火狐浏览器效果更佳，在页面加载之前进行alert函数，为了让用户体验更好所以使用V-CLOCK-->
+   <div id="itany">
+    <p v-cloak>{{msg}}</p>
+   </div>
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:"#itany",
+            data:{
+                msg:"hellovue"
+            },
+            beforeMount:function(){
+                alert("确定执行")
+            }
+        })
+    </script>
+</body>
+</html>
