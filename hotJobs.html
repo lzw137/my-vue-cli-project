@@ -8,6 +8,7 @@
     <title>热招职位</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link href="https://cdn.bootcss.com/Swiper/4.5.1/css/swiper.min.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="./css/mescroll.min.css">
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="./js/rem.js"></script>
     <script src="./js/url.js"></script>
@@ -38,6 +39,8 @@ input:-ms-input-placeholder {
     font-size: 0.875rem;
     font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;
 }
+/*vue*/
+[v-cloak] {display: none;}
 #hot{width: 100%;}
 #hot .nav{width: 100%; padding:0.9375rem 0;background-color: #F2F2F2;}
 #hot .nav img{position: absolute;left: 0.9375rem;top:1.25rem;width: 0.5625rem;height: 1rem;}
@@ -160,7 +163,8 @@ input:-ms-input-placeholder {
                 </div>
             </div>
             <!-- 你可能感兴趣的职位 -->
-            <div class="interest">
+            <div id="mescroll" class="mescroll">
+            <div class="interest" v-cloak >
                 <div class="tip">你可能感兴趣的职位</div>
                 <div class="interest-job flex" v-for="(item,index) in interest" @click="jump(item.duty.id)">
                     <div class="job-left">
@@ -180,6 +184,7 @@ input:-ms-input-placeholder {
                     </div>
                 </div>
             </div>
+        </div>
 
         </div>
      
@@ -187,6 +192,7 @@ input:-ms-input-placeholder {
 </body>
 
 <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+<script src="./js/mescroll.min.js"></script>
 <script src="https://cdn.bootcss.com/Swiper/4.5.1/js/swiper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script type="text/javascript">
@@ -196,13 +202,14 @@ var hot = new Vue({
         return{
         company:[],
         interest:[],
+        mescroll: null,
         }
     },
         mounted(){
         var that = this;
 // 查询热门雇主的数据
         function fetch1() {
-            fetch(url + "/dutyApi/selCompanyPage?page=1&limit=10", {
+            fetch(url + "/dutyApi/selCompanyPage?page=1&limit=100", {
             method: "post"
             })
             .then(res => {
@@ -211,7 +218,7 @@ var hot = new Vue({
             .then(data => {
                 var data = data.data;
                 that.company = data;
-                // console.log(that.company)
+                console.log(that.company)
                 for (let i = 0; i < that.company.length; i++) {
                     that.company[i].logo = url1 + that.company[i].logo;
                     that.company[i].name =that.company[i].name;
@@ -223,33 +230,40 @@ var hot = new Vue({
             })
         }
 // 初始化轮播
-        function initSwiper(){
-            if (that.swiper != null) return;
-            var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 4,
-            loop:true,
-            autoplay: {
-            delay: 3000,
-            stopOnLastSlide: false,
-            disableOnInteraction: false,
-            },
-            initialSlide :0,
-            observer:true,//修改swiper自己或子元素时，自动初始化swiper
-            observeParents:true//修改swiper的父元素时，自动初始化swiper//修改swiper的父元素时，自动初始化swiper
-            });
+    function initSwiper(){
+        if (that.swiper != null) return;
+        var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 4,
+        loop:true,
+        autoplay: {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+        },
+        initialSlide :0,
+        observer:true,//修改swiper自己或子元素时，自动初始化swiper
+        observeParents:true//修改swiper的父元素时，自动初始化swiper//修改swiper的父元素时，自动初始化swiper
+        });
       }
  
 // 查询具体职位
-        function fetch2() {
-            fetch(url + "/dutyApi/selDuty?page=1&limit=10", {
+
+        function getListDataFromNet(pageNum,pageSize,successCallback,errorCallback) {
+        // var pageNum = 1; //页码
+        // var size = 4;  //每页数据固定条数
+            fetch(url + "/dutyApi/selDuty?page="+pageNum+"&limit="+pageSize, {
                 method: "post",
             })
             .then(res => {
             return res.json();
             })
             .then(data => {
+                totalSize = data.count;
                 data = data.data;
                 that.interest = data;
+                console.log(data)
+                console.log("data.length="+data.length)
+                // console.log("totalSize="+totalSize)
                 console.log(that.interest)
                 for(let i=0;i<that.interest.length;i++){
                 that.interest[i].companyName = that.interest[i].duty.companyName;//公司名称
@@ -270,33 +284,67 @@ var hot = new Vue({
                             that.interest[i].years = arr[j].name;
                         }else if(arr[j].classify==3){
                             that.interest[i].education = arr[j].name;
-                        }
-                        
+                        }  
                     }
                     let addressName = '';
                     if(addressArr.length == 1){ 
                         addressName += addressArr[0]
                          }
                     if(addressArr.length > 1){
-                    //   that.changeStyle();
-                    // $(".interest-job .address").addClass("addressWidth");
                         for(let k = 0;k<addressArr.length;k++){
                             addressName += addressArr[k]+','
                         }
                     }
-           
-            }                 
+                };
+                console.log("page.num="+pageNum+", page.size="+pageSize+", curPageData.length="+data.length);
+               
+                successCallback&&successCallback(that.interest);//成功回调
+                // mescroll.endSuccess(data.length);
+                          
             }) 
+        }
+        
+        function upCallback(page) {
+            console.log(page)
+            getListDataFromNet(page.num, page.size, function(curPageData) {
+                // console.log(page.num+","+page.size)
+                console.log(curPageData)
+                if(page.num == 1){ that.interest = [];}
+                that.interest = that.interest.concat(curPageData);
+                console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.length+", that.interest.length==" + that.interest.length);
+                console.log(curPageData.length+','+that.interest.length)
+                that.mescroll.endSuccess(curPageData.length)
+            },function () {
+                    that.mescroll.endErr();
+            });
         }
         async function queryData(){
             await fetch1();
-            await new Promise(function(resolve,reject){
-                setTimeout(function(){
-                    fetch2();
-                },100)
-            })
+            // await new Promise(function(resolve,reject){
+            //     setTimeout(function(){
+            //         fetch2();
+            //     },100)
+            // })
         }
         queryData();
+
+        that.mescroll = new MeScroll("mescroll", {
+           
+            up: {
+                callback: upCallback, //上拉加载的回调
+                htmlNodata: '<p class="upwarp-nodata">-- END --</p>',
+                toTop: {
+                    src: "./img/mescroll-totop.png", //图片路径,默认null;
+                    offset: 1000, //列表滚动多少距离才显示回到顶部按钮,默认1000
+                },
+                lazyLoad: {
+                    use: true // 是否开启懒加载,默认false
+                },
+                offset: 100,
+            }
+        })
+
+      
         },
         methods: {
         jump:function(id){
@@ -305,10 +353,14 @@ var hot = new Vue({
         back:function(){
         window.location.href='./index.html'; 
         },
+
+       
        
         },
     },      
     )
+
+    
 
 </script>
 

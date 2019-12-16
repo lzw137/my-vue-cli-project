@@ -6,10 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>优秀学员</title>
     <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/mescroll.min.css">
     <script src="./js/rem.js"></script>
     <script src="./js/url.js"></script>
 </head>
 <style>
+    /*vue*/
+    [v-cloak] {
+        display: none;
+    }
     #app{width: 100%;min-width: 20rem;}
     #app .nav{width: 100%; padding:0.9375rem 0;}
     #app .nav img{position: absolute;left: 0.9375rem;top:1.25rem;width: 0.5625rem;height: 1rem;}
@@ -38,9 +43,9 @@
             <img src="./img/back.png" alt="back" @click="back">
             <p>优秀学员</p>
         </div>
-        <div class="wrap">
-            <ul v-for="(item,index) in stuInfo">
-                <li class="flex"  @click="jump(item.id)">
+        <div class="wrap" id="mescroll" class="mescroll">
+            <ul v-cloak>
+                <li class="flex"  @click="jump(item.id)" v-for="(item,index) in stuInfo">
                     <!-- 头像 -->
                     <div class="headImg flex">
                         <img :src="item.headImg" alt="">
@@ -63,7 +68,8 @@
         </div>
     </div>
 </body>
-<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./js/mescroll.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="./js/rem.js"></script>
 <script>
@@ -71,29 +77,41 @@
      el:'#app',
      data(){
          return{
-        stuInfo:[]
+        stuInfo:[],
+        mescroll:null,
+
     }
 
      },
      mounted(){
          var that = this;
-        fetch1();
-        function fetch1(){
-            fetch(url+"/studentApi/selStudent?page=1&limit=10",{method:'post'})
-            .then(function(res){
-                return res.json();
-            })
-            .then(function(data){
-                console.log(data.data)
-                that.stuInfo = data.data;
-                for(let i =0;i<that.stuInfo.length;i++){
-                    that.stuInfo[i].headImg = "http://121.43.107.140:8104/"+that.stuInfo[i].img;
-                    that.stuInfo[i].salary = that.stuInfo[i].salary/1000;
-                }
-                // console.log(that.stuInfo)             
+        // fetch1();
+        // function fetch1(){
+        //     fetch(url+"/studentApi/selStudent?page=1&limit=10",{method:'post'})
+        //     .then(function(res){
+        //         return res.json();
+        //     })
+        //     .then(function(data){
+        //         console.log(data.data)
+        //         that.stuInfo = data.data;
+        //         for(let i =0;i<that.stuInfo.length;i++){
+        //             that.stuInfo[i].headImg = url1+that.stuInfo[i].img;
+        //             that.stuInfo[i].salary = that.stuInfo[i].salary/1000;
+        //         }          
+        //     })
+        // }
 
-            })
-        }
+        var self = this;
+        self.mescroll = new  MeScroll("mescroll", { //请至少在vue的mounted生命周期初始化mescroll,以确保您配置的id能够被找到
+            up: {
+                callback: self.upCallback, //上拉回调
+                empty: {
+						//列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
+						warpId:	"mescroll", //父布局的id (1.3.5版本支持传入dom元素)
+						tip: "暂无相关数据~" //提示
+					},
+            }
+        });
      },
      methods: {
          jump:function(id){
@@ -102,9 +120,60 @@
          },
          back:function(){
             window.location.href='./index.html';
+         },
+         //上拉回调 page = {num:1, size:10}; num:当前页 ,默认从1开始; size:每页数据条数,默认10
+        upCallback: function(page) {
+            //联网加载数据
+            var self = this;
+            getListDataFromNet(page.num, page.size, function(curPageData) {
+                // curPageData=[]; //打开本行注释,可演示列表无任何数据empty的配置
+                // console.log(curPageData)
+                if(page.num == 1) self.stuInfo = [];
+                self.stuInfo = self.stuInfo.concat(curPageData);
+                console.log(self.stuInfo)
+                // for(let i =0;i<self.stuInfo.length;i++){
+                //     self.stuInfo[i].headImg = url1+self.stuInfo[i].img;
+                //     self.stuInfo[i].salary = self.stuInfo[i].salary/1000;
+                // }  
+                console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.length+", self.stuInfo.length==" + self.stuInfo.length);
+                self.mescroll.endSuccess(curPageData.length);
+            },function () {
+                self.mescroll.endErr();
+            });
+        },
+     },    
+ });
+
+ function getListDataFromNet(pageNum,pageSize,successCallback,errorCallback) {
+     axios.get(url+"/studentApi/selStudent",{
+         params:{
+            page:pageNum,
+            limit:pageSize
          }
-     },
-     
- })
+     })
+     .then(function(response){
+         console.log(response)
+          var totalSize = response.data.count;
+         console.log(totalSize)
+         var data = response.data.data;
+         var listData=[];//定义一个空数组
+         for (var i = (pageNum-1)*pageSize; i < pageNum*pageSize; i++) {
+            if(i==data.length) break;
+            listData.push(data[i]);
+        }
+        
+        console.log("listData:")
+        console.log(listData)
+        for(let i =0;i<listData.length;i++){
+            listData[i].headImg = url1+listData[i].img;
+            listData[i].salary = listData[i].salary/1000;
+        }  
+        successCallback&&successCallback(listData);
+     })
+    //  .catch(function(error) {
+    //         errorCallback&&errorCallback()//失败回调
+    //     });
+ }
+
 </script>
 </html>
