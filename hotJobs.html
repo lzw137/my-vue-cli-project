@@ -8,12 +8,15 @@
     <title>热招职位</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link href="https://cdn.bootcss.com/Swiper/4.5.1/css/swiper.min.css" rel="stylesheet"> 
-    <link rel="stylesheet" href="./css/mescroll.min.css">
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="./js/rem.js"></script>
     <script src="./js/url.js"></script>
 </head>
 <style>
+/*vue*/
+[v-cloak] {
+    display: none;
+}
 /*修改提示文字的颜色*/
 input::-webkit-input-placeholder {
     /* WebKit browsers */
@@ -39,8 +42,7 @@ input:-ms-input-placeholder {
     font-size: 0.875rem;
     font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;
 }
-/*vue*/
-[v-cloak] {display: none;}
+
 #hot{width: 100%;}
 #hot .nav{width: 100%; padding:0.9375rem 0;background-color: #F2F2F2;}
 #hot .nav img{position: absolute;left: 0.9375rem;top:1.25rem;width: 0.5625rem;height: 1rem;}
@@ -163,7 +165,6 @@ input:-ms-input-placeholder {
                 </div>
             </div>
             <!-- 你可能感兴趣的职位 -->
-            <div id="mescroll" class="mescroll">
             <div class="interest" v-cloak >
                 <div class="tip">你可能感兴趣的职位</div>
                 <div class="interest-job flex" v-for="(item,index) in interest" @click="jump(item.duty.id)">
@@ -184,7 +185,7 @@ input:-ms-input-placeholder {
                     </div>
                 </div>
             </div>
-        </div>
+   
 
         </div>
      
@@ -192,7 +193,6 @@ input:-ms-input-placeholder {
 </body>
 
 <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
-<script src="./js/mescroll.min.js"></script>
 <script src="https://cdn.bootcss.com/Swiper/4.5.1/js/swiper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script type="text/javascript">
@@ -202,11 +202,13 @@ var hot = new Vue({
         return{
         company:[],
         interest:[],
-        mescroll: null,
+        totalSize:0,
         }
     },
         mounted(){
         var that = this;
+        var page = 1;
+        var limit = 10;
 // 查询热门雇主的数据
         function fetch1() {
             fetch(url + "/dutyApi/selCompanyPage?page=1&limit=100", {
@@ -248,10 +250,9 @@ var hot = new Vue({
  
 // 查询具体职位
 
-        function getListDataFromNet(pageNum,pageSize,successCallback,errorCallback) {
-        // var pageNum = 1; //页码
-        // var size = 4;  //每页数据固定条数
-            fetch(url + "/dutyApi/selDuty?page="+pageNum+"&limit="+pageSize, {
+        function fetch2(page,limit) {
+        totalSize = that.totalSize;
+            fetch(url + "/dutyApi/selDuty?page="+page+"&limit="+limit, {
                 method: "post",
             })
             .then(res => {
@@ -260,30 +261,27 @@ var hot = new Vue({
             .then(data => {
                 totalSize = data.count;
                 data = data.data;
-                that.interest = data;
-                console.log(data)
-                console.log("data.length="+data.length)
-                // console.log("totalSize="+totalSize)
-                console.log(that.interest)
-                for(let i=0;i<that.interest.length;i++){
-                that.interest[i].companyName = that.interest[i].duty.companyName;//公司名称
-                that.interest[i].name = that.interest[i].duty.duty;//职位名称
-                that.interest[i].salary = that.interest[i].duty.salaryRange;//工资范围 
-                that.interest[i].logo = url1 + that.interest[i].company.logo;//logo
+                // console.log(totalSize)
+                // console.log("data.length="+data.length)
+                for(let i=0;i<data.length;i++){
+                data[i].companyName = data[i].duty.companyName;//公司名称
+                data[i].name = data[i].duty.duty;//职位名称
+                data[i].salary = data[i].duty.salaryRange;//工资范围 
+                data[i].logo = url1 + data[i].company.logo;//logo
                 var arr = [];
-                arr = that.interest[i].label;
-                 //     /*标签*/
-                that.interest[i].address = "";
+                arr = data[i].label;
+               /*标签*/
+                data[i].address = "";
                 var addressArr = [];
                     for(let j=0;j<arr.length;j++){
                         if(arr[j].classify==1){
-                            that.interest[i].address+=arr[j].name+" ";
+                            data[i].address+=arr[j].name+" ";
                             addressArr.push(arr[j].name) 
                           
                         }else if(arr[j].classify==2){
-                            that.interest[i].years = arr[j].name;
+                            data[i].years = arr[j].name;
                         }else if(arr[j].classify==3){
-                            that.interest[i].education = arr[j].name;
+                            data[i].education = arr[j].name;
                         }  
                     }
                     let addressName = '';
@@ -296,54 +294,39 @@ var hot = new Vue({
                         }
                     }
                 };
-                console.log("page.num="+pageNum+", page.size="+pageSize+", curPageData.length="+data.length);
-               
-                successCallback&&successCallback(that.interest);//成功回调
-                // mescroll.endSuccess(data.length);
-                          
+                that.interest = that.interest.concat(data);
+                console.log(that.interest)
+                return totalSize;  //返回数据总量用于计算总页数  
             }) 
         }
         
-        function upCallback(page) {
-            console.log(page)
-            getListDataFromNet(page.num, page.size, function(curPageData) {
-                // console.log(page.num+","+page.size)
-                console.log(curPageData)
-                if(page.num == 1){ that.interest = [];}
-                that.interest = that.interest.concat(curPageData);
-                console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.length+", that.interest.length==" + that.interest.length);
-                console.log(curPageData.length+','+that.interest.length)
-                that.mescroll.endSuccess(curPageData.length)
-            },function () {
-                    that.mescroll.endErr();
-            });
-        }
+        window.onscroll = function () {
+            var scrollH = document.documentElement.scrollHeight;// 文档的完整高度
+            var scrollT = document.documentElement.scrollTop || document.body.scrollTop; // 当前滚动条的垂直偏移
+            var screenH = window.screen.height;  // 屏幕可视高度(固定值)
+            // console.log("文档的完整高度scrollH="+scrollH+"px,当前滚动条的垂直偏移scrollT="+scrollT+"px")
+            if ((scrollH - scrollT - screenH) < 5) { //5只是一个相对值，可以让页面再接近底面的时候就开始请求
+                // 执行请求
+                var totalPage = Math.ceil(totalSize/10);   //总页数   
+                while(page<=totalPage){
+                    fetch2(++page,10)
+                    if(page == (totalPage+1)) break;
+                    // console.log("页数："+page+",总页数："+totalPage)
+                }
+                
+            }
+            
+        };
+
         async function queryData(){
             await fetch1();
-            // await new Promise(function(resolve,reject){
-            //     setTimeout(function(){
-            //         fetch2();
-            //     },100)
-            // })
+            await new Promise(function(resolve,reject){
+                setTimeout(function(){
+                    fetch2(1,10);
+                },100)
+            })
         }
         queryData();
-
-        that.mescroll = new MeScroll("mescroll", {
-           
-            up: {
-                callback: upCallback, //上拉加载的回调
-                htmlNodata: '<p class="upwarp-nodata">-- END --</p>',
-                toTop: {
-                    src: "./img/mescroll-totop.png", //图片路径,默认null;
-                    offset: 1000, //列表滚动多少距离才显示回到顶部按钮,默认1000
-                },
-                lazyLoad: {
-                    use: true // 是否开启懒加载,默认false
-                },
-                offset: 100,
-            }
-        })
-
       
         },
         methods: {
@@ -351,7 +334,7 @@ var hot = new Vue({
         window.location.href='./jobDetails.html?id='+id;
         },
         back:function(){
-        window.location.href='./index.html'; 
+       // window.location.href='./index.html'; 
         },
 
        
